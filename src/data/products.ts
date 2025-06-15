@@ -1,0 +1,85 @@
+import { Product } from '../types';
+
+export const products: Product[] = [
+  {
+    id: '1',
+    name: 'RICH-U-ALS Tactical Tee',
+    price: 45,
+    originalPrice: 60,
+    images: [
+      'https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg',
+      'https://images.pexels.com/photos/8532617/pexels-photo-8532617.jpeg',
+    ],
+    category: 'tees',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: ['Black', 'Olive', 'White'],
+    description: 'Premium tactical-inspired t-shirt crafted from high-quality cotton blend. Features the iconic RICH-U-ALS scorpion logo.',
+    featured: true,
+  },
+  {
+    id: '2',
+    name: 'Combat Ready Hoodie',
+    price: 85,
+    originalPrice: 110,
+    images: [
+      'https://images.pexels.com/photos/8532618/pexels-photo-8532618.jpeg',
+      'https://images.pexels.com/photos/8532619/pexels-photo-8532619.jpeg',
+    ],
+    category: 'hoodies',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: ['Black', 'Olive', 'Military Green'],
+    description: 'Heavy-duty hoodie designed for durability and comfort. Perfect for urban exploration and tactical operations.',
+    featured: true,
+  },
+  {
+    id: '3',
+    name: 'Tactical Cargo Pants',
+    price: 95,
+    originalPrice: 120,
+    images: [
+      'https://images.pexels.com/photos/8532620/pexels-photo-8532620.jpeg',
+      'https://images.pexels.com/photos/8532621/pexels-photo-8532621.jpeg',
+    ],
+    category: 'bottoms',
+    sizes: ['28', '30', '32', '34', '36', '38'],
+    colors: ['Black', 'Olive', 'Khaki'],
+    description: 'Multi-pocket cargo pants built for functionality and style. Reinforced knees and premium ripstop fabric.',
+    featured: true,
+  },
+  {
+    id: '4',
+    name: 'Stealth Operations Tee',
+    price: 40,
+    images: [
+      'https://images.pexels.com/photos/8532622/pexels-photo-8532622.jpeg',
+    ],
+    category: 'tees',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: ['Black', 'Charcoal'],
+    description: 'Minimalist design meets maximum impact. Perfect for covert operations or casual wear.',
+  },
+  {
+    id: '5',
+    name: 'Urban Warfare Hoodie',
+    price: 90,
+    images: [
+      'https://images.pexels.com/photos/8532623/pexels-photo-8532623.jpeg',
+    ],
+    category: 'hoodies',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: ['Black', 'Olive', 'Grey'],
+    description: 'Engineered for the urban battlefield. Features tactical pockets and reinforced construction.',
+  },
+  {
+    id: '6',
+    name: 'Survival Shorts',
+    price: 55,
+    images: [
+      'https://images.pexels.com/photos/8532624/pexels-photo-8532624.jpeg',
+    ],
+    category: 'bottoms',
+    sizes: ['28', '30', '32', '34', '36', '38'],
+    colors: ['Black', 'Olive', 'Tan'],
+    description: 'Lightweight tactical shorts for hot weather operations. Multiple utility pockets included.',
+  },
+];
