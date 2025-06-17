@@ -54,7 +54,7 @@ const Shop: React.FC = () => {
       {/* Header */}
       <div className="bg-black text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="font-stencil text-4xl font-bold text-orange-500 mb-4">
+          <h1 className="font-military text-4xl font-bold text-orange-500 mb-4">
             TACTICAL GEAR SHOP
           </h1>
           <p className="text-gray-300">
@@ -69,7 +69,7 @@ const Shop: React.FC = () => {
           <div className="lg:w-64">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
               <div className="flex items-center justify-between mb-4 lg:hidden">
-                <h3 className="font-stencil text-lg font-bold">Filters</h3>
+                <h3 className="font-military text-lg font-bold">Filters</h3>
                 <button
                   onClick={() => setShowFilters(!showFilters)}
                   className="p-2 hover:bg-gray-100 rounded-lg"
@@ -79,7 +79,7 @@ const Shop: React.FC = () => {
               </div>
 
               <div className={`${showFilters ? 'block' : 'hidden'} lg:block`}>
-                <h3 className="font-stencil text-lg font-bold mb-4 hidden lg:block">Categories</h3>
+                <h3 className="font-military text-lg font-bold mb-4 hidden lg:block">Categories</h3>
                 <ul className="space-y-2">
                   {categories.map((category) => (
                     <li key={category.id}>

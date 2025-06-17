@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
       <div className="border-b border-orange-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
-            <h3 className="font-stencil text-2xl font-bold mb-4 text-orange-500">
+            <h3 className="font-military text-2xl font-bold mb-4 text-orange-500">
               JOIN THE RANKS
             </h3>
             <p className="text-gray-300 mb-6 max-w-md mx-auto">
@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="inline-block mb-4">
-              <div className="font-stencil text-2xl font-bold tracking-wider text-orange-500">
+              <div className="font-military text-2xl font-bold tracking-wider text-orange-500">
                 RICH-U-ALS
               </div>
             </Link>
@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-stencil text-lg font-bold mb-4 text-orange-500">QUICK LINKS</h4>
+            <h4 className="font-military text-lg font-bold mb-4 text-orange-500">QUICK LINKS</h4>
             <ul className="space-y-2">
               <li><Link to="/shop" className="text-gray-300 hover:text-orange-500 transition-colors duration-200">Shop All</Link></li>
               <li><Link to="/shop?category=tees" className="text-gray-300 hover:text-orange-500 transition-colors duration-200">Tees</Link></li>
@@ -85,7 +85,7 @@ const Footer: React.FC = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-stencil text-lg font-bold mb-4 text-orange-500">CONTACT</h4>
+            <h4 className="font-military text-lg font-bold mb-4 text-orange-500">CONTACT</h4>
             <ul className="space-y-3">
               <li className="flex items-center space-x-2 text-gray-300">
                 <Mail className="h-4 w-4" />

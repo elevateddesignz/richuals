@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'stencil': ['Orbitron', 'monospace'],
+        'stencil': ['Black Ops One', 'Orbitron', 'monospace'],
+        'military': ['Black Ops One', 'monospace'],
         'sans': ['Inter', 'sans-serif'],
       },
       colors: {

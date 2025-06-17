@@ -29,11 +29,12 @@ const Home: React.FC = () => {
         
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <div className="animate-fade-in">
-            <h1 className="font-stencil text-6xl md:text-8xl font-black mb-6 tracking-wider text-orange-500">
+            <h1 className="font-military text-6xl md:text-8xl font-black mb-6 tracking-wider text-orange-500">
               RICH-U-ALS
             </h1>
-            <p className="text-xl md:text-2xl mb-8 font-light tracking-wide">
-              TACTICAL CLOTHING FOR THE MODERN WARRIOR
+            <p className="text-xl md:text-2xl mb-8 font-light tracking-wide leading-relaxed">
+              Every action, habit, and moment of discipline is a step towards
+              wealth, success, and fulfillment.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -42,12 +43,6 @@ const Home: React.FC = () => {
               >
                 <span>SHOP NOW</span>
                 <ArrowRight className="h-5 w-5" />
-              </Link>
-              <Link
-                to="/about"
-                className="border-2 border-white hover:bg-white hover:text-black text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
-              >
-                OUR MISSION
               </Link>
             </div>
           </div>
@@ -62,21 +57,21 @@ const Home: React.FC = () => {
               <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="h-8 w-8 text-black" />
               </div>
-              <h3 className="font-stencil text-xl font-bold mb-2">TACTICAL DURABILITY</h3>
+              <h3 className="font-military text-xl font-bold mb-2">TACTICAL DURABILITY</h3>
               <p className="text-gray-600">Built to withstand the toughest conditions and missions.</p>
             </div>
             <div className="text-center animate-slide-up" style={{ animationDelay: '0.1s' }}>
               <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Truck className="h-8 w-8 text-black" />
               </div>
-              <h3 className="font-stencil text-xl font-bold mb-2">RAPID DEPLOYMENT</h3>
+              <h3 className="font-military text-xl font-bold mb-2">RAPID DEPLOYMENT</h3>
               <p className="text-gray-600">Fast, secure shipping to get your gear when you need it.</p>
             </div>
             <div className="text-center animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="h-8 w-8 text-black" />
               </div>
-              <h3 className="font-stencil text-xl font-bold mb-2">ELITE QUALITY</h3>
+              <h3 className="font-military text-xl font-bold mb-2">ELITE QUALITY</h3>
               <p className="text-gray-600">Premium materials and construction for superior performance.</p>
             </div>
           </div>
@@ -87,7 +82,7 @@ const Home: React.FC = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-stencil text-4xl font-bold mb-4 text-orange-500">
+            <h2 className="font-military text-4xl font-bold mb-4 text-orange-500">
               FEATURED GEAR
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
@@ -118,7 +113,7 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-stencil text-4xl font-bold mb-6 text-orange-500">
+              <h2 className="font-military text-4xl font-bold mb-6 text-orange-500">
                 BUILT FOR BATTLE
               </h2>
               <p className="text-gray-300 text-lg mb-6">

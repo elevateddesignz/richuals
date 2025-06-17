@@ -23,7 +23,7 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="font-stencil text-xl font-bold tracking-wider text-orange-500">
+            <div className="font-military text-xl font-bold tracking-wider text-orange-500">
               RICH-U-ALS
             </div>
           </Link>

@@ -29,7 +29,7 @@ const Contact: React.FC = () => {
       {/* Header */}
       <section className="bg-black text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-stencil text-4xl font-bold mb-4 text-orange-500">
+          <h1 className="font-military text-4xl font-bold mb-4 text-orange-500">
             CONTACT COMMAND
           </h1>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
@@ -44,7 +44,7 @@ const Contact: React.FC = () => {
           {/* Contact Information */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-8">
-              <h2 className="font-stencil text-2xl font-bold mb-6 text-orange-500">
+              <h2 className="font-military text-2xl font-bold mb-6 text-orange-500">
                 GET IN TOUCH
               </h2>
               
@@ -101,7 +101,7 @@ const Contact: React.FC = () => {
               </div>
 
               <div className="mt-8 pt-8 border-t border-gray-200">
-                <h3 className="font-stencil text-lg font-bold mb-4 text-orange-500">
+                <h3 className="font-military text-lg font-bold mb-4 text-orange-500">
                   QUICK LINKS
                 </h3>
                 <ul className="space-y-2">
@@ -133,7 +133,7 @@ const Contact: React.FC = () => {
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-md p-8">
-              <h2 className="font-stencil text-2xl font-bold mb-6 text-orange-500">
+              <h2 className="font-military text-2xl font-bold mb-6 text-orange-500">
                 SEND A MESSAGE
               </h2>
               
@@ -234,7 +234,7 @@ const Contact: React.FC = () => {
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-stencil text-3xl font-bold mb-4 text-orange-500">
+            <h2 className="font-military text-3xl font-bold mb-4 text-orange-500">
               FREQUENTLY ASKED QUESTIONS
             </h2>
             <p className="text-gray-600">

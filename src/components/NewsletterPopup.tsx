@@ -27,7 +27,7 @@ const NewsletterPopup: React.FC<NewsletterPopupProps> = ({ isOpen, onClose }) =>
         </button>
         
         <div className="text-center">
-          <div className="font-stencil text-2xl font-bold mb-2 text-orange-500">
+          <div className="font-military text-2xl font-bold mb-2 text-orange-500">
             RICH-U-ALS
           </div>
           <h3 className="text-xl font-bold text-gray-900 mb-2">
