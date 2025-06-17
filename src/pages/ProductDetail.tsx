@@ -19,7 +19,7 @@ const ProductDetail: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h1>
-          <Link to="/shop" className="text-olive-600 hover:text-olive-700">
+          <Link to="/shop" className="text-orange-500 hover:text-orange-600">
             Return to Shop
           </Link>
         </div>
@@ -55,9 +55,9 @@ const ProductDetail: React.FC = () => {
       <div className="bg-gray-50 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-2 text-sm">
-            <Link to="/" className="text-gray-500 hover:text-olive-600">Home</Link>
+            <Link to="/" className="text-gray-500 hover:text-orange-500">Home</Link>
             <span className="text-gray-400">/</span>
-            <Link to="/shop" className="text-gray-500 hover:text-olive-600">Shop</Link>
+            <Link to="/shop" className="text-gray-500 hover:text-orange-500">Shop</Link>
             <span className="text-gray-400">/</span>
             <span className="text-gray-900">{product.name}</span>
           </div>
@@ -68,7 +68,7 @@ const ProductDetail: React.FC = () => {
         {/* Back Button */}
         <Link
           to="/shop"
-          className="inline-flex items-center space-x-2 text-gray-600 hover:text-olive-600 mb-8 transition-colors duration-200"
+          className="inline-flex items-center space-x-2 text-gray-600 hover:text-orange-500 mb-8 transition-colors duration-200"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Back to Shop</span>
@@ -97,7 +97,7 @@ const ProductDetail: React.FC = () => {
                     key={index}
                     onClick={() => setSelectedImage(index)}
                     className={`relative overflow-hidden rounded-lg ${
-                      selectedImage === index ? 'ring-2 ring-olive-600' : ''
+                      selectedImage === index ? 'ring-2 ring-orange-500' : ''
                     }`}
                   >
                     <img
@@ -138,8 +138,8 @@ const ProductDetail: React.FC = () => {
                     onClick={() => setSelectedSize(size)}
                     className={`py-2 px-3 border rounded-lg text-center transition-colors duration-200 ${
                       selectedSize === size
-                        ? 'border-olive-600 bg-olive-600 text-white'
-                        : 'border-gray-300 hover:border-olive-600'
+                        ? 'border-orange-500 bg-orange-500 text-white'
+                        : 'border-gray-300 hover:border-orange-500'
                     }`}
                   >
                     {size}
@@ -158,8 +158,8 @@ const ProductDetail: React.FC = () => {
                     onClick={() => setSelectedColor(color)}
                     className={`py-2 px-4 border rounded-lg transition-colors duration-200 ${
                       selectedColor === color
-                        ? 'border-olive-600 bg-olive-600 text-white'
-                        : 'border-gray-300 hover:border-olive-600'
+                        ? 'border-orange-500 bg-orange-500 text-white'
+                        : 'border-gray-300 hover:border-orange-500'
                     }`}
                   >
                     {color}
@@ -192,7 +192,7 @@ const ProductDetail: React.FC = () => {
             <div className="space-y-4 mb-8">
               <button
                 onClick={handleAddToCart}
-                className="w-full bg-olive-600 hover:bg-olive-700 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-200"
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-200"
               >
                 ADD TO CART - ${(product.price * quantity).toFixed(2)}
               </button>
@@ -213,15 +213,15 @@ const ProductDetail: React.FC = () => {
             <div className="border-t pt-8">
               <div className="grid grid-cols-1 gap-4">
                 <div className="flex items-center space-x-3">
-                  <Truck className="h-5 w-5 text-olive-600" />
+                  <Truck className="h-5 w-5 text-orange-500" />
                   <span className="text-sm text-gray-600">Free shipping on orders over $75</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Shield className="h-5 w-5 text-olive-600" />
+                  <Shield className="h-5 w-5 text-orange-500" />
                   <span className="text-sm text-gray-600">Lifetime warranty on all products</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <RotateCcw className="h-5 w-5 text-olive-600" />
+                  <RotateCcw className="h-5 w-5 text-orange-500" />
                   <span className="text-sm text-gray-600">30-day return policy</span>
                 </div>
               </div>
@@ -250,7 +250,7 @@ const ProductDetail: React.FC = () => {
                     />
                     <div className="p-4">
                       <h3 className="font-semibold text-gray-900 mb-2">{relatedProduct.name}</h3>
-                      <p className="text-olive-600 font-bold">${relatedProduct.price}</p>
+                      <p className="text-orange-500 font-bold">${relatedProduct.price}</p>
                     </div>
                   </div>
                 </Link>

@@ -36,7 +36,7 @@ const Cart: React.FC = () => {
           </p>
           <Link
             to="/shop"
-            className="bg-olive-600 hover:bg-olive-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
+            className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
           >
             START SHOPPING
           </Link>
@@ -60,7 +60,7 @@ const Cart: React.FC = () => {
           </div>
           <Link
             to="/shop"
-            className="flex items-center space-x-2 text-olive-600 hover:text-olive-700 transition-colors duration-200"
+            className="flex items-center space-x-2 text-orange-500 hover:text-orange-600 transition-colors duration-200"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Continue Shopping</span>
@@ -89,7 +89,7 @@ const Cart: React.FC = () => {
                         <p className="text-sm text-gray-600 mb-2">
                           Size: {item.size} | Color: {item.color}
                         </p>
-                        <p className="font-bold text-olive-600">
+                        <p className="font-bold text-orange-500">
                           ${item.product.price}
                         </p>
                       </div>
@@ -165,8 +165,8 @@ const Cart: React.FC = () => {
               </div>
 
               {state.total < 75 && (
-                <div className="bg-olive-50 border border-olive-200 rounded-lg p-3 mb-6">
-                  <p className="text-sm text-olive-800">
+                <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 mb-6">
+                  <p className="text-sm text-orange-800">
                     Add ${(75 - state.total).toFixed(2)} more for free shipping!
                   </p>
                 </div>
@@ -174,7 +174,7 @@ const Cart: React.FC = () => {
 
               <button
                 onClick={handleCheckout}
-                className="w-full bg-olive-600 hover:bg-olive-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 mb-4"
+                className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 mb-4"
               >
                 PROCEED TO CHECKOUT
               </button>

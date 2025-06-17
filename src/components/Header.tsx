@@ -18,12 +18,12 @@ const Header: React.FC = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="bg-black/95 backdrop-blur-sm text-white sticky top-0 z-50 border-b border-olive-800/30">
+    <header className="bg-black/95 backdrop-blur-sm text-white sticky top-0 z-50 border-b border-orange-800/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="font-stencil text-xl font-bold tracking-wider text-olive-400">
+            <div className="font-stencil text-xl font-bold tracking-wider text-orange-500">
               RICH-U-ALS
             </div>
           </Link>
@@ -34,8 +34,8 @@ const Header: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-sm font-medium transition-colors duration-200 hover:text-olive-400 ${
-                  isActive(item.href) ? 'text-olive-400' : 'text-white'
+                className={`text-sm font-medium transition-colors duration-200 hover:text-orange-500 ${
+                  isActive(item.href) ? 'text-orange-500' : 'text-white'
                 }`}
               >
                 {item.name}
@@ -57,7 +57,7 @@ const Header: React.FC = () => {
             >
               <ShoppingBag className="h-5 w-5" />
               {state.items.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-olive-500 text-black text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                <span className="absolute -top-1 -right-1 bg-orange-500 text-black text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
                   {state.items.reduce((sum, item) => sum + item.quantity, 0)}
                 </span>
               )}
@@ -75,14 +75,14 @@ const Header: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-olive-800/30">
+          <div className="md:hidden py-4 border-t border-orange-800/30">
             <nav className="flex flex-col space-y-2">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 hover:text-olive-400 hover:bg-white/5 rounded-lg ${
-                    isActive(item.href) ? 'text-olive-400 bg-white/5' : 'text-white'
+                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 hover:text-orange-500 hover:bg-white/5 rounded-lg ${
+                    isActive(item.href) ? 'text-orange-500 bg-white/5' : 'text-white'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >

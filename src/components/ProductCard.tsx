@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
         
         <div className="p-4">
-          <h3 className="font-stencil text-lg font-bold text-gray-900 mb-2 group-hover:text-olive-600 transition-colors duration-200">
+          <h3 className="font-stencil text-lg font-bold text-gray-900 mb-2 group-hover:text-orange-500 transition-colors duration-200">
             {product.name}
           </h3>
           

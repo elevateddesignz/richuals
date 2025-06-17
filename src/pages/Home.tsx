@@ -29,7 +29,7 @@ const Home: React.FC = () => {
         
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <div className="animate-fade-in">
-            <h1 className="font-stencil text-6xl md:text-8xl font-black mb-6 tracking-wider text-olive-400">
+            <h1 className="font-stencil text-6xl md:text-8xl font-black mb-6 tracking-wider text-orange-500">
               RICH-U-ALS
             </h1>
             <p className="text-xl md:text-2xl mb-8 font-light tracking-wide">
@@ -38,7 +38,7 @@ const Home: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/shop"
-                className="bg-olive-600 hover:bg-olive-700 text-black font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2"
+                className="bg-orange-500 hover:bg-orange-600 text-black font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2"
               >
                 <span>SHOP NOW</span>
                 <ArrowRight className="h-5 w-5" />
@@ -59,21 +59,21 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center animate-slide-up">
-              <div className="bg-olive-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="h-8 w-8 text-black" />
               </div>
               <h3 className="font-stencil text-xl font-bold mb-2">TACTICAL DURABILITY</h3>
               <p className="text-gray-600">Built to withstand the toughest conditions and missions.</p>
             </div>
             <div className="text-center animate-slide-up" style={{ animationDelay: '0.1s' }}>
-              <div className="bg-olive-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Truck className="h-8 w-8 text-black" />
               </div>
               <h3 className="font-stencil text-xl font-bold mb-2">RAPID DEPLOYMENT</h3>
               <p className="text-gray-600">Fast, secure shipping to get your gear when you need it.</p>
             </div>
             <div className="text-center animate-slide-up" style={{ animationDelay: '0.2s' }}>
-              <div className="bg-olive-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="h-8 w-8 text-black" />
               </div>
               <h3 className="font-stencil text-xl font-bold mb-2">ELITE QUALITY</h3>
@@ -87,7 +87,7 @@ const Home: React.FC = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-stencil text-4xl font-bold mb-4 text-olive-600">
+            <h2 className="font-stencil text-4xl font-bold mb-4 text-orange-500">
               FEATURED GEAR
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
@@ -118,7 +118,7 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-stencil text-4xl font-bold mb-6 text-olive-400">
+              <h2 className="font-stencil text-4xl font-bold mb-6 text-orange-500">
                 BUILT FOR BATTLE
               </h2>
               <p className="text-gray-300 text-lg mb-6">
@@ -128,21 +128,21 @@ const Home: React.FC = () => {
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-olive-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                   <span>Military-grade materials and construction</span>
                 </li>
                 <li className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-olive-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                   <span>Functional design meets street style</span>
                 </li>
                 <li className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-olive-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                   <span>Tested by professionals in the field</span>
                 </li>
               </ul>
               <Link
                 to="/about"
-                className="bg-olive-600 hover:bg-olive-700 text-black font-bold py-3 px-6 rounded-lg transition-colors duration-200"
+                className="bg-orange-500 hover:bg-orange-600 text-black font-bold py-3 px-6 rounded-lg transition-colors duration-200"
               >
                 LEARN MORE
               </Link>

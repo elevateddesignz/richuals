@@ -54,7 +54,7 @@ const Shop: React.FC = () => {
       {/* Header */}
       <div className="bg-black text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="font-stencil text-4xl font-bold text-olive-400 mb-4">
+          <h1 className="font-stencil text-4xl font-bold text-orange-500 mb-4">
             TACTICAL GEAR SHOP
           </h1>
           <p className="text-gray-300">
@@ -87,7 +87,7 @@ const Shop: React.FC = () => {
                         onClick={() => handleCategoryChange(category.id)}
                         className={`w-full text-left px-3 py-2 rounded-lg transition-colors duration-200 flex items-center justify-between ${
                           categoryFilter === category.id
-                            ? 'bg-olive-100 text-olive-800 font-semibold'
+                            ? 'bg-orange-100 text-orange-800 font-semibold'
                             : 'hover:bg-gray-100'
                         }`}
                       >
@@ -119,7 +119,7 @@ const Shop: React.FC = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-olive-500"
+                  className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 >
                   <option value="featured">Featured</option>
                   <option value="name">Name A-Z</option>
@@ -131,13 +131,13 @@ const Shop: React.FC = () => {
                 <div className="flex border border-gray-300 rounded-lg overflow-hidden">
                   <button
                     onClick={() => setViewMode('grid')}
-                    className={`p-2 ${viewMode === 'grid' ? 'bg-olive-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                    className={`p-2 ${viewMode === 'grid' ? 'bg-orange-500 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
                   >
                     <Grid className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => setViewMode('list')}
-                    className={`p-2 ${viewMode === 'list' ? 'bg-olive-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                    className={`p-2 ${viewMode === 'list' ? 'bg-orange-500 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
                   >
                     <List className="h-4 w-4" />
                   </button>
@@ -161,7 +161,7 @@ const Shop: React.FC = () => {
                 <p className="text-gray-500 text-lg">No products found in this category.</p>
                 <button
                   onClick={() => handleCategoryChange('all')}
-                  className="mt-4 bg-olive-600 hover:bg-olive-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200"
+                  className="mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200"
                 >
                   View All Products
                 </button>

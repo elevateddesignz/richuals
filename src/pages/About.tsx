@@ -7,7 +7,7 @@ const About: React.FC = () => {
       {/* Hero Section */}
       <section className="bg-black text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-stencil text-5xl font-bold mb-6 text-olive-400">
+          <h1 className="font-stencil text-5xl font-bold mb-6 text-orange-500">
             ABOUT RICH-U-ALS
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -22,7 +22,7 @@ const About: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-stencil text-3xl font-bold mb-6 text-olive-600">
+              <h2 className="font-stencil text-3xl font-bold mb-6 text-orange-500">
                 OUR MISSION
               </h2>
               <p className="text-gray-600 text-lg mb-6">
@@ -38,11 +38,11 @@ const About: React.FC = () => {
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-olive-600">2019</div>
+                  <div className="text-3xl font-bold text-orange-500">2019</div>
                   <div className="text-sm text-gray-600">Founded</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-olive-600">50K+</div>
+                  <div className="text-3xl font-bold text-orange-500">50K+</div>
                   <div className="text-sm text-gray-600">Warriors Equipped</div>
                 </div>
               </div>
@@ -62,7 +62,7 @@ const About: React.FC = () => {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-stencil text-3xl font-bold mb-4 text-olive-600">
+            <h2 className="font-stencil text-3xl font-bold mb-4 text-orange-500">
               OUR VALUES
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
@@ -72,7 +72,7 @@ const About: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="bg-olive-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="h-8 w-8 text-white" />
               </div>
               <h3 className="font-stencil text-xl font-bold mb-2">DURABILITY</h3>
@@ -82,7 +82,7 @@ const About: React.FC = () => {
             </div>
 
             <div className="text-center">
-              <div className="bg-olive-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Target className="h-8 w-8 text-white" />
               </div>
               <h3 className="font-stencil text-xl font-bold mb-2">PRECISION</h3>
@@ -92,7 +92,7 @@ const About: React.FC = () => {
             </div>
 
             <div className="text-center">
-              <div className="bg-olive-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="h-8 w-8 text-white" />
               </div>
               <h3 className="font-stencil text-xl font-bold mb-2">COMMUNITY</h3>
@@ -102,7 +102,7 @@ const About: React.FC = () => {
             </div>
 
             <div className="text-center">
-              <div className="bg-olive-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="h-8 w-8 text-white" />
               </div>
               <h3 className="font-stencil text-xl font-bold mb-2">EXCELLENCE</h3>
@@ -126,7 +126,7 @@ const About: React.FC = () => {
               />
             </div>
             <div>
-              <h2 className="font-stencil text-3xl font-bold mb-6 text-olive-400">
+              <h2 className="font-stencil text-3xl font-bold mb-6 text-orange-500">
                 THE RICH-U-ALS STORY
               </h2>
               <p className="text-gray-300 text-lg mb-6">
@@ -150,7 +150,7 @@ const About: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-olive-600">
+      <section className="py-16 bg-orange-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-stencil text-3xl font-bold mb-4 text-black">
             READY TO JOIN THE RANKS?

@@ -29,7 +29,7 @@ const Contact: React.FC = () => {
       {/* Header */}
       <section className="bg-black text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-stencil text-4xl font-bold mb-4 text-olive-400">
+          <h1 className="font-stencil text-4xl font-bold mb-4 text-orange-500">
             CONTACT COMMAND
           </h1>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
@@ -44,13 +44,13 @@ const Contact: React.FC = () => {
           {/* Contact Information */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-8">
-              <h2 className="font-stencil text-2xl font-bold mb-6 text-olive-600">
+              <h2 className="font-stencil text-2xl font-bold mb-6 text-orange-500">
                 GET IN TOUCH
               </h2>
               
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-olive-600 p-3 rounded-lg">
+                  <div className="bg-orange-500 p-3 rounded-lg">
                     <Mail className="h-6 w-6 text-white" />
                   </div>
                   <div>
@@ -61,7 +61,7 @@ const Contact: React.FC = () => {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="bg-olive-600 p-3 rounded-lg">
+                  <div className="bg-orange-500 p-3 rounded-lg">
                     <Phone className="h-6 w-6 text-white" />
                   </div>
                   <div>
@@ -72,7 +72,7 @@ const Contact: React.FC = () => {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="bg-olive-600 p-3 rounded-lg">
+                  <div className="bg-orange-500 p-3 rounded-lg">
                     <MapPin className="h-6 w-6 text-white" />
                   </div>
                   <div>
@@ -86,7 +86,7 @@ const Contact: React.FC = () => {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="bg-olive-600 p-3 rounded-lg">
+                  <div className="bg-orange-500 p-3 rounded-lg">
                     <Clock className="h-6 w-6 text-white" />
                   </div>
                   <div>
@@ -101,27 +101,27 @@ const Contact: React.FC = () => {
               </div>
 
               <div className="mt-8 pt-8 border-t border-gray-200">
-                <h3 className="font-stencil text-lg font-bold mb-4 text-olive-600">
+                <h3 className="font-stencil text-lg font-bold mb-4 text-orange-500">
                   QUICK LINKS
                 </h3>
                 <ul className="space-y-2">
                   <li>
-                    <a href="/returns" className="text-gray-600 hover:text-olive-600 transition-colors duration-200">
+                    <a href="/returns" className="text-gray-600 hover:text-orange-500 transition-colors duration-200">
                       Returns & Exchanges
                     </a>
                   </li>
                   <li>
-                    <a href="/shipping" className="text-gray-600 hover:text-olive-600 transition-colors duration-200">
+                    <a href="/shipping" className="text-gray-600 hover:text-orange-500 transition-colors duration-200">
                       Shipping Information
                     </a>
                   </li>
                   <li>
-                    <a href="/size-guide" className="text-gray-600 hover:text-olive-600 transition-colors duration-200">
+                    <a href="/size-guide" className="text-gray-600 hover:text-orange-500 transition-colors duration-200">
                       Size Guide
                     </a>
                   </li>
                   <li>
-                    <a href="/warranty" className="text-gray-600 hover:text-olive-600 transition-colors duration-200">
+                    <a href="/warranty" className="text-gray-600 hover:text-orange-500 transition-colors duration-200">
                       Warranty Information
                     </a>
                   </li>
@@ -133,7 +133,7 @@ const Contact: React.FC = () => {
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-md p-8">
-              <h2 className="font-stencil text-2xl font-bold mb-6 text-olive-600">
+              <h2 className="font-stencil text-2xl font-bold mb-6 text-orange-500">
                 SEND A MESSAGE
               </h2>
               
@@ -150,7 +150,7 @@ const Contact: React.FC = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-olive-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                       placeholder="Your full name"
                     />
                   </div>
@@ -166,7 +166,7 @@ const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-olive-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -182,7 +182,7 @@ const Contact: React.FC = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-olive-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                   >
                     <option value="">Select a subject</option>
                     <option value="order">Order Inquiry</option>
@@ -205,22 +205,22 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-olive-500 focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none"
                     placeholder="Please provide details about your inquiry..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-olive-600 hover:bg-olive-700 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
                 >
                   <Send className="h-5 w-5" />
                   <span>SEND MESSAGE</span>
                 </button>
               </form>
 
-              <div className="mt-6 p-4 bg-olive-50 border border-olive-200 rounded-lg">
-                <p className="text-sm text-olive-800">
+              <div className="mt-6 p-4 bg-orange-50 border border-orange-200 rounded-lg">
+                <p className="text-sm text-orange-800">
                   <strong>Response Time:</strong> We typically respond to all inquiries within 24 hours during business days. 
                   For urgent matters, please call our support line directly.
                 </p>
@@ -234,7 +234,7 @@ const Contact: React.FC = () => {
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-stencil text-3xl font-bold mb-4 text-olive-600">
+            <h2 className="font-stencil text-3xl font-bold mb-4 text-orange-500">
               FREQUENTLY ASKED QUESTIONS
             </h2>
             <p className="text-gray-600">

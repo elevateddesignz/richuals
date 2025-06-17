@@ -27,7 +27,7 @@ const NewsletterPopup: React.FC<NewsletterPopupProps> = ({ isOpen, onClose }) =>
         </button>
         
         <div className="text-center">
-          <div className="font-stencil text-2xl font-bold mb-2 text-olive-600">
+          <div className="font-stencil text-2xl font-bold mb-2 text-orange-500">
             RICH-U-ALS
           </div>
           <h3 className="text-xl font-bold text-gray-900 mb-2">
@@ -44,12 +44,12 @@ const NewsletterPopup: React.FC<NewsletterPopupProps> = ({ isOpen, onClose }) =>
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-olive-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               required
             />
             <button
               type="submit"
-              className="w-full bg-olive-600 hover:bg-olive-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
             >
               ENLIST NOW
             </button>
