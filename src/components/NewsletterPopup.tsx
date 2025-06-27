@@ -1,63 +1,57 @@
-import React, { useState } from 'react';
+// src/components/NewsletterPopup.tsx
+import React from 'react';
 import { X } from 'lucide-react';
-import { NewsletterPopupProps } from '../types';
+
+interface NewsletterPopupProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
 const NewsletterPopup: React.FC<NewsletterPopupProps> = ({ isOpen, onClose }) => {
-  const [email, setEmail] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle newsletter signup
-    console.log('Newsletter signup:', email);
-    setEmail('');
-    onClose();
-    alert('Thank you for joining the RICH-U-ALS ranks!');
-  };
-
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg max-w-md w-full p-6 relative animate-zoom-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="relative w-full max-w-4xl h-full md:h-96 flex flex-col md:flex-row overflow-hidden">
+        {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-full transition-colors duration-200"
+          className="absolute top-4 right-4 z-10 p-2 text-white"
+          aria-label="Close popup"
         >
-          <X className="h-5 w-5" />
+          <X className="h-6 w-6" />
         </button>
-        
-        <div className="text-center">
-          <div className="font-military text-2xl font-bold mb-2 text-orange-500">
-            RICH-U-ALS
+
+        {/* Left Image (Shirt Preview) */}
+        <div className="hidden md:block md:w-1/2 h-full bg-white flex items-center justify-center">
+          <img
+            src="/shirt.png"
+            alt="Shirt Preview"
+            className="object-contain w-full h-full p-4"
+          />
+        </div>
+
+        {/* Right Content */}
+        <div className="w-full md:w-1/2 bg-black text-white p-8 flex flex-col justify-center space-y-6">
+          <div>
+            <h2 className="text-4xl font-bold uppercase">GET 10% OFF</h2>
+            <p className="mt-2 text-lg">
+              Claim 10% off your order when you sign up for drop notifications
+            </p>
           </div>
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
-            JOIN THE ELITE
-          </h3>
-          <p className="text-gray-600 mb-6">
-            Get exclusive access to new tactical gear, limited drops, and survival tips. 
-            Plus, receive 10% off your first order.
-          </p>
-          
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email address"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-              required
-            />
-            <button
-              type="submit"
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
-            >
-              ENLIST NOW
-            </button>
-          </form>
-          
-          <p className="text-xs text-gray-500 mt-4">
-            By subscribing, you agree to our privacy policy and terms of service.
-          </p>
+          <input
+            type="email"
+            placeholder="Email Address"
+            className="w-full bg-white text-black placeholder-gray-500 py-3 px-4 border-2 border-orange-500 focus:outline-none"
+          />
+          <button
+            onClick={() => {
+              /* handle subscription */
+            }}
+            className="w-full bg-orange-500 hover:bg-orange-600 text-black py-3 text-lg font-bold uppercase tracking-wide transition-colors duration-200"
+          >
+            CONTINUE
+          </button>
         </div>
       </div>
     </div>
