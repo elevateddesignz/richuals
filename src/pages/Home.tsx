@@ -8,25 +8,11 @@ import { products } from '../data/products';
 
 const Home: React.FC = () => {
   const [showNewsletterPopup, setShowNewsletterPopup] = useState(false);
-  const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const featuredRef = useRef<HTMLDivElement>(null);
-
-  const heroImages = [
-    'https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg',
-    'https://images.pexels.com/photos/8532618/pexels-photo-8532618.jpeg',
-    'https://images.pexels.com/photos/8532620/pexels-photo-8532620.jpeg'
-  ];
 
   useEffect(() => {
     const timer = setTimeout(() => setShowNewsletterPopup(true), 3000);
     return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
-    }, 4000);
-    return () => clearInterval(interval);
   }, []);
 
   const featuredProducts = products.filter(p => p.featured);
@@ -51,24 +37,15 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative min-h-screen bg-black overflow-hidden">
-        {/* Background Image Carousel */}
+      <section className="relative min-h-screen overflow-hidden">
+        {/* Background Image */}
         <div className="absolute inset-0">
-          {heroImages.map((image, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
-                index === currentHeroImage ? 'opacity-40' : 'opacity-0'
-              }`}
-            >
-              <img
-                src={image}
-                alt={`Hero ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ))}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
+          <img
+            src="/trap.png"
+            alt="RICH-U-ALS Products"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
         </div>
 
         {/* Hero Content */}
@@ -98,7 +75,7 @@ const Home: React.FC = () => {
                 </p>
 
                 {/* Description */}
-                <p className="text-lg text-gray-400 mb-10 max-w-xl leading-relaxed">
+                <p className="text-lg text-gray-300 mb-10 max-w-xl leading-relaxed">
                   Military-grade tactical clothing designed for the modern warrior. 
                   Every thread engineered for excellence, every design built for victory.
                 </p>
@@ -113,62 +90,61 @@ const Home: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                   </Link>
                   
-                  <button className="group flex items-center justify-center space-x-2 border-2 border-white/30 text-white hover:bg-white hover:text-black font-bold py-4 px-8 rounded-lg transition-all duration-300 backdrop-blur-sm">
+                  <Link
+                    to="/about"
+                    className="group flex items-center justify-center space-x-2 border-2 border-white/30 text-white hover:bg-white hover:text-black font-bold py-4 px-8 rounded-lg transition-all duration-300 backdrop-blur-sm"
+                  >
                     <Play className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />
-                    <span>WATCH STORY</span>
-                  </button>
+                    <span>OUR STORY</span>
+                  </Link>
                 </div>
 
                 {/* Stats */}
                 <div className="grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-orange-500 mb-1">50K+</div>
-                    <div className="text-xs text-gray-400 font-medium uppercase tracking-wide">Warriors</div>
+                    <div className="text-xs text-gray-300 font-medium uppercase tracking-wide">Warriors</div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-orange-500 mb-1">100%</div>
-                    <div className="text-xs text-gray-400 font-medium uppercase tracking-wide">Quality</div>
+                    <div className="text-xs text-gray-300 font-medium uppercase tracking-wide">Quality</div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-orange-500 mb-1">24/7</div>
-                    <div className="text-xs text-gray-400 font-medium uppercase tracking-wide">Ready</div>
+                    <div className="text-xs text-gray-300 font-medium uppercase tracking-wide">Ready</div>
                   </div>
                 </div>
               </div>
 
-              {/* Hero Product Showcase */}
-              <div className="relative lg:block hidden">
-                <div className="relative">
-                  {/* Main Product Image */}
-                  <div className="bg-gradient-to-br from-orange-500/20 to-orange-600/10 rounded-3xl p-8 backdrop-blur-sm border border-orange-500/20">
-                    <img
-                      src={heroImages[currentHeroImage]}
-                      alt="Featured Product"
-                      className="w-full h-96 object-cover rounded-2xl shadow-2xl"
-                    />
-                  </div>
-
-                  {/* Floating Elements */}
-                  <div className="absolute -top-4 -right-4 bg-orange-500 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg animate-pulse">
-                    NEW DROP
-                  </div>
-                  
-                  <div className="absolute -bottom-4 -left-4 bg-black/80 backdrop-blur-sm text-white px-6 py-3 rounded-xl border border-orange-500/30">
-                    <div className="text-sm text-gray-400">Starting at</div>
-                    <div className="text-xl font-bold text-orange-500">$45</div>
-                  </div>
-
-                  {/* Carousel Indicators */}
-                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                    {heroImages.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentHeroImage(index)}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                          index === currentHeroImage ? 'bg-orange-500 w-6' : 'bg-white/50'
-                        }`}
-                      />
-                    ))}
+              {/* Right side - Let the background image show through */}
+              <div className="hidden lg:block">
+                {/* Floating Product Info Card */}
+                <div className="relative ml-auto max-w-sm">
+                  <div className="bg-black/60 backdrop-blur-md text-white p-6 rounded-2xl border border-orange-500/30 shadow-2xl">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                        NEW DROP
+                      </div>
+                      <div className="text-orange-500 font-bold">★★★★★</div>
+                    </div>
+                    
+                    <h3 className="font-military text-xl font-bold mb-2">TACTICAL TEE COLLECTION</h3>
+                    <p className="text-gray-300 text-sm mb-4">
+                      Premium scorpion logo design on military-grade cotton blend
+                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="text-2xl font-bold text-orange-500">$45</span>
+                        <span className="text-gray-400 line-through ml-2">$60</span>
+                      </div>
+                      <Link
+                        to="/shop"
+                        className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors duration-200"
+                      >
+                        SHOP NOW
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
