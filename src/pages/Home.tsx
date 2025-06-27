@@ -311,30 +311,6 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="py-20 bg-gradient-to-r from-orange-500 to-orange-600 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-military text-4xl font-bold text-white mb-4">
-            JOIN THE ELITE RANKS
-          </h2>
-          <p className="text-orange-100 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-            Get exclusive intel on new drops, tactical gear updates, and survival strategies. 
-            Plus, receive 10% off your first mission.
-          </p>
-          <div className="flex flex-col sm:flex-row max-w-md mx-auto gap-3">
-            <input
-              type="email"
-              placeholder="Enter your email for deployment"
-              className="flex-1 px-6 py-4 rounded-lg border-0 focus:outline-none focus:ring-4 focus:ring-orange-300 text-gray-900 placeholder-gray-500"
-            />
-            <button className="bg-black hover:bg-gray-900 text-white font-bold py-4 px-8 rounded-lg transition-all duration-200 transform hover:scale-105">
-              ENLIST NOW
-            </button>
-          </div>
-        </div>
-      </section>
-
       <NewsletterPopup isOpen={showNewsletterPopup} onClose={() => setShowNewsletterPopup(false)} />
     </div>
   );

@@ -15,36 +15,6 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-white border-t border-gray-200">
-      {/* Newsletter Section */}
-      <div className="border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center">
-            <h3 className="font-military text-2xl font-bold mb-4 text-gray-900">
-              JOIN THE RANKS
-            </h3>
-            <p className="text-gray-600 mb-6 max-w-md mx-auto">
-              Get exclusive access to new drops, tactical gear updates, and survival tips.
-            </p>
-            <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto flex gap-2">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                required
-              />
-              <button
-                type="submit"
-                className="px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors duration-200"
-              >
-                ENLIST
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
