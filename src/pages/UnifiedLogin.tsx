@@ -26,7 +26,7 @@ const UnifiedLogin: React.FC = () => {
     newsletter: false
   });
 
-  const { state: customerState, login: customerLogin, register } = useCustomer();
+  const { state: customerState, login: customerLogin,register } = useCustomer();
   const { state: adminState, login: adminLogin } = useAdmin();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/account';
@@ -107,7 +107,7 @@ const UnifiedLogin: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <Link to="/" className="inline-block mb-6">
@@ -123,7 +123,7 @@ const UnifiedLogin: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-8">
+        <div className="bg-white rounded-lg shadow-md p-8 border border-gray-100">
           {/* Toggle Buttons */}
           <div className="flex mb-6 bg-gray-100 rounded-lg p-1">
             <button

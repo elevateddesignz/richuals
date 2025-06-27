@@ -25,7 +25,7 @@ const Cart: React.FC = () => {
 
   if (state.items.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <ShoppingBag className="h-16 w-16 text-gray-400 mx-auto mb-4" />
           <h2 className="font-stencil text-2xl font-bold text-gray-900 mb-4">
@@ -46,7 +46,7 @@ const Cart: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -70,7 +70,7 @@ const Cart: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
               {state.items.map((item) => {
                 const itemId = `${item.product.id}-${item.size}-${item.color}`;
                 return (
@@ -132,7 +132,7 @@ const Cart: React.FC = () => {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md p-6 sticky top-24">
+            <div className="bg-white rounded-lg shadow-md p-6 sticky top-24 border border-gray-100">
               <h2 className="font-stencil text-xl font-bold text-gray-900 mb-4">
                 ORDER SUMMARY
               </h2>

@@ -49,7 +49,7 @@ const CustomerAccount: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,7 +79,7 @@ const CustomerAccount: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar Navigation */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
               <div className="flex items-center space-x-3 mb-6">
                 <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
                   <User className="h-6 w-6 text-white" />
@@ -130,7 +130,7 @@ const CustomerAccount: React.FC = () => {
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="bg-white p-6 rounded-lg shadow-md">
+                  <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm text-gray-600">Total Orders</p>
@@ -140,7 +140,7 @@ const CustomerAccount: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="bg-white p-6 rounded-lg shadow-md">
+                  <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm text-gray-600">Wishlist Items</p>
@@ -150,7 +150,7 @@ const CustomerAccount: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="bg-white p-6 rounded-lg shadow-md">
+                  <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm text-gray-600">Member Since</p>
@@ -162,7 +162,7 @@ const CustomerAccount: React.FC = () => {
                 </div>
 
                 {/* Recent Orders */}
-                <div className="bg-white rounded-lg shadow-md">
+                <div className="bg-white rounded-lg shadow-md border border-gray-100">
                   <div className="p-6 border-b border-gray-200">
                     <div className="flex justify-between items-center">
                       <h3 className="text-lg font-semibold text-gray-900">Recent Orders</h3>
@@ -206,7 +206,7 @@ const CustomerAccount: React.FC = () => {
 
             {/* Orders Tab */}
             {activeTab === 'orders' && (
-              <div className="bg-white rounded-lg shadow-md">
+              <div className="bg-white rounded-lg shadow-md border border-gray-100">
                 <div className="p-6 border-b border-gray-200">
                   <h3 className="text-lg font-semibold text-gray-900">Order History</h3>
                 </div>
@@ -286,7 +286,7 @@ const CustomerAccount: React.FC = () => {
             {/* Profile Tab */}
             {activeTab === 'profile' && (
               <div className="space-y-6">
-                <div className="bg-white rounded-lg shadow-md p-6">
+                <div className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
                   <div className="flex justify-between items-center mb-6">
                     <h3 className="text-lg font-semibold text-gray-900">Personal Information</h3>
                     <button className="flex items-center space-x-2 text-orange-500 hover:text-orange-600">
@@ -321,7 +321,7 @@ const CustomerAccount: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow-md p-6">
+                <div className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
                   <h3 className="text-lg font-semibold text-gray-900 mb-6">Communication Preferences</h3>
                   
                   <div className="space-y-4">
@@ -368,7 +368,7 @@ const CustomerAccount: React.FC = () => {
 
             {/* Addresses Tab */}
             {activeTab === 'addresses' && (
-              <div className="bg-white rounded-lg shadow-md">
+              <div className="bg-white rounded-lg shadow-md border border-gray-100">
                 <div className="p-6 border-b border-gray-200">
                   <div className="flex justify-between items-center">
                     <h3 className="text-lg font-semibold text-gray-900">Saved Addresses</h3>
@@ -412,7 +412,7 @@ const CustomerAccount: React.FC = () => {
 
             {/* Wishlist Tab */}
             {activeTab === 'wishlist' && (
-              <div className="bg-white rounded-lg shadow-md">
+              <div className="bg-white rounded-lg shadow-md border border-gray-100">
                 <div className="p-6 border-b border-gray-200">
                   <h3 className="text-lg font-semibold text-gray-900">My Wishlist</h3>
                 </div>

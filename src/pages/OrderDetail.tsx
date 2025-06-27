@@ -15,7 +15,7 @@ const OrderDetail: React.FC = () => {
 
   if (!order) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <Package className="h-16 w-16 text-gray-300 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Order Not Found</h2>
@@ -71,7 +71,7 @@ const OrderDetail: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -98,7 +98,7 @@ const OrderDetail: React.FC = () => {
         </Link>
 
         {/* Order Header */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6 border border-gray-100">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
             <div>
               <h1 className="text-2xl font-bold text-gray-900 mb-2">Order #{order.orderNumber}</h1>
@@ -172,7 +172,7 @@ const OrderDetail: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Order Items */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-md">
+            <div className="bg-white rounded-lg shadow-md border border-gray-100">
               <div className="p-6 border-b border-gray-200">
                 <h3 className="text-lg font-semibold text-gray-900">Order Items</h3>
               </div>
@@ -210,7 +210,7 @@ const OrderDetail: React.FC = () => {
           {/* Order Summary & Addresses */}
           <div className="space-y-6">
             {/* Order Summary */}
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
@@ -237,7 +237,7 @@ const OrderDetail: React.FC = () => {
             </div>
 
             {/* Shipping Address */}
-            <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center space-x-2">
                 <MapPin className="h-5 w-5" />
                 <span>Shipping Address</span>

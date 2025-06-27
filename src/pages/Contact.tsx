@@ -25,7 +25,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <section className="bg-black text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -43,7 +43,7 @@ const Contact: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Contact Information */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md p-8">
+            <div className="bg-white rounded-lg shadow-md p-8 border border-gray-100">
               <h2 className="font-military text-2xl font-bold mb-6 text-orange-500">
                 GET IN TOUCH
               </h2>
@@ -132,7 +132,7 @@ const Contact: React.FC = () => {
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-md p-8">
+            <div className="bg-white rounded-lg shadow-md p-8 border border-gray-100">
               <h2 className="font-military text-2xl font-bold mb-6 text-orange-500">
                 SEND A MESSAGE
               </h2>

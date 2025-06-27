@@ -16,7 +16,7 @@ const ProductDetail: React.FC = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h1>
           <Link to="/shop" className="text-orange-500 hover:text-orange-600">
@@ -52,7 +52,7 @@ const ProductDetail: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 py-4">
+      <div className="bg-white py-4 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-2 text-sm">
             <Link to="/" className="text-gray-500 hover:text-orange-500">Home</Link>
@@ -242,7 +242,7 @@ const ProductDetail: React.FC = () => {
                   to={`/product/${relatedProduct.id}`}
                   className="group block"
                 >
-                  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
+                  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200 border border-gray-100">
                     <img
                       src={relatedProduct.images[0]}
                       alt={relatedProduct.name}

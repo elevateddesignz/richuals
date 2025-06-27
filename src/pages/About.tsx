@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Shield, Target, Users, Award, CheckCircle, Star } from 'lucide-react';
 
 const About: React.FC = () => {
@@ -62,7 +63,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="font-military text-4xl font-bold mb-4 text-gray-900">
@@ -74,7 +75,7 @@ const About: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white p-8 rounded-2xl shadow-lg text-center hover:shadow-xl transition-shadow duration-300 border border-gray-100">
               <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Shield className="h-8 w-8 text-orange-500" />
               </div>
@@ -84,7 +85,7 @@ const About: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white p-8 rounded-2xl shadow-lg text-center hover:shadow-xl transition-shadow duration-300 border border-gray-100">
               <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Target className="h-8 w-8 text-orange-500" />
               </div>
@@ -94,7 +95,7 @@ const About: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white p-8 rounded-2xl shadow-lg text-center hover:shadow-xl transition-shadow duration-300 border border-gray-100">
               <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Users className="h-8 w-8 text-orange-500" />
               </div>
@@ -104,7 +105,7 @@ const About: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg text-center hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white p-8 rounded-2xl shadow-lg text-center hover:shadow-xl transition-shadow duration-300 border border-gray-100">
               <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Award className="h-8 w-8 text-orange-500" />
               </div>
@@ -170,7 +171,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="font-military text-4xl font-bold mb-4 text-gray-900">
@@ -182,7 +183,7 @@ const About: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
+            <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
               <div className="flex items-center mb-4">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="h-5 w-5 text-orange-500 fill-current" />
@@ -195,7 +196,7 @@ const About: React.FC = () => {
               <div className="font-semibold text-gray-900">- Marcus T., Former Marine</div>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
+            <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
               <div className="flex items-center mb-4">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="h-5 w-5 text-orange-500 fill-current" />
@@ -208,7 +209,7 @@ const About: React.FC = () => {
               <div className="font-semibold text-gray-900">- Sarah K., Outdoor Enthusiast</div>
             </div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
+            <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
               <div className="flex items-center mb-4">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="h-5 w-5 text-orange-500 fill-current" />

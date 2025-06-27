@@ -26,7 +26,7 @@ const ProductManager: React.FC = () => {
   });
 
   if (!state.isAuthenticated) {
-    return <Navigate to="/admin/login" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -159,7 +159,7 @@ const ProductManager: React.FC = () => {
 
   if (showForm) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center space-x-4">
@@ -176,7 +176,7 @@ const ProductManager: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-8">
+          <div className="bg-white rounded-lg shadow-md p-8 border border-gray-100">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -443,7 +443,7 @@ const ProductManager: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Product Management</h1>
@@ -457,7 +457,7 @@ const ProductManager: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {state.products.map((product) => (
-            <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
               <img
                 src={product.images[0]}
                 alt={product.name}

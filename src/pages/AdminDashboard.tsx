@@ -29,7 +29,7 @@ const AdminDashboard: React.FC = () => {
   const recentOrders = state.orders.slice(0, 5);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,7 +83,7 @@ const AdminDashboard: React.FC = () => {
           <div className="space-y-8">
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600">Total Revenue</p>
@@ -93,7 +93,7 @@ const AdminDashboard: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600">Pending Orders</p>
@@ -103,7 +103,7 @@ const AdminDashboard: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600">Total Products</p>
@@ -113,7 +113,7 @@ const AdminDashboard: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600">Subscribers</p>
@@ -125,7 +125,7 @@ const AdminDashboard: React.FC = () => {
             </div>
 
             {/* Recent Orders */}
-            <div className="bg-white rounded-lg shadow-md">
+            <div className="bg-white rounded-lg shadow-md border border-gray-100">
               <div className="p-6 border-b border-gray-200">
                 <h3 className="text-lg font-semibold text-gray-900">Recent Orders</h3>
               </div>
@@ -197,7 +197,7 @@ const AdminDashboard: React.FC = () => {
               </button>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-gray-50">
@@ -269,7 +269,7 @@ const AdminDashboard: React.FC = () => {
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900">Orders</h2>
 
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-gray-50">
@@ -350,7 +350,7 @@ const AdminDashboard: React.FC = () => {
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900">Newsletter Subscribers</h2>
 
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead className="bg-gray-50">
