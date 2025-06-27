@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
         <div className="flex items-center space-x-4">
           <Link 
             to="/admin/login"
-            className="p-2 text-gray-700 hover:text-orange-500 transition-colors duration-200 relative group"
+            className="inline-flex items-center justify-center p-2 text-gray-700 hover:text-orange-500 transition-colors duration-200 relative group"
             title="Admin Login"
           >
             <User className="h-6 w-6" />
@@ -49,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           
           <Link 
             to="/cart" 
-            className="p-2 text-gray-700 hover:text-orange-500 transition-colors duration-200 relative"
+            className="inline-flex items-center justify-center p-2 text-gray-700 hover:text-orange-500 transition-colors duration-200 relative"
           >
             <ShoppingCart className="h-6 w-6" />
             {totalItems > 0 && (
