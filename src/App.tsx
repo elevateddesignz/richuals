@@ -27,24 +27,67 @@ const App: React.FC = () => {
 
             <div className="flex-1 flex flex-col">
               <Routes>
-                {/* Admin Routes - These need to be first to avoid conflicts */}
+                {/* Admin Routes - No Header/Footer */}
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 <Route path="/admin/products" element={<ProductManager />} />
                 
                 {/* Public Routes with Header and Footer */}
-                <Route path="/*" element={
+                <Route path="/" element={
                   <>
                     <Header onMenuClick={() => setSidebarOpen(true)} />
                     <main className="flex-1">
-                      <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/shop" element={<Shop />} />
-                        <Route path="/product/:id" element={<ProductDetail />} />
-                        <Route path="/cart" element={<Cart />} />
-                        <Route path="/about" element={<About />} />
-                        <Route path="/contact" element={<Contact />} />
-                      </Routes>
+                      <Home />
+                    </main>
+                    <Footer />
+                  </>
+                } />
+                
+                <Route path="/shop" element={
+                  <>
+                    <Header onMenuClick={() => setSidebarOpen(true)} />
+                    <main className="flex-1">
+                      <Shop />
+                    </main>
+                    <Footer />
+                  </>
+                } />
+                
+                <Route path="/product/:id" element={
+                  <>
+                    <Header onMenuClick={() => setSidebarOpen(true)} />
+                    <main className="flex-1">
+                      <ProductDetail />
+                    </main>
+                    <Footer />
+                  </>
+                } />
+                
+                <Route path="/cart" element={
+                  <>
+                    <Header onMenuClick={() => setSidebarOpen(true)} />
+                    <main className="flex-1">
+                      <Cart />
+                    </main>
+                    <Footer />
+                  </>
+                } />
+                
+                <Route path="/about" element={
+                  <>
+                    <Header onMenuClick={() => setSidebarOpen(true)} />
+                    <main className="flex-1">
+                      <About />
+                    </main>
+                    <Footer />
+                  </>
+                } />
+                
+                <Route path="/contact" element={
+                  <>
+                    <Header onMenuClick={() => setSidebarOpen(true)} />
+                    <main className="flex-1">
+                      <Contact />
                     </main>
                     <Footer />
                   </>
