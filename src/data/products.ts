@@ -15,6 +15,9 @@ export const products: Product[] = [
     colors: ['Black', 'Olive', 'White'],
     description: 'Premium tactical-inspired t-shirt crafted from high-quality cotton blend. Features the iconic RICH-U-ALS scorpion logo.',
     featured: true,
+    newArrival: true,
+    inStock: true,
+    stockCount: 50,
   },
   {
     id: '2',
@@ -30,6 +33,9 @@ export const products: Product[] = [
     colors: ['Black', 'Olive', 'Military Green'],
     description: 'Heavy-duty hoodie designed for durability and comfort. Perfect for urban exploration and tactical operations.',
     featured: true,
+    newArrival: false,
+    inStock: true,
+    stockCount: 30,
   },
   {
     id: '3',
@@ -45,6 +51,9 @@ export const products: Product[] = [
     colors: ['Black', 'Olive', 'Khaki'],
     description: 'Multi-pocket cargo pants built for functionality and style. Reinforced knees and premium ripstop fabric.',
     featured: true,
+    newArrival: false,
+    inStock: true,
+    stockCount: 25,
   },
   {
     id: '4',
@@ -57,6 +66,10 @@ export const products: Product[] = [
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: ['Black', 'Charcoal'],
     description: 'Minimalist design meets maximum impact. Perfect for covert operations or casual wear.',
+    featured: false,
+    newArrival: true,
+    inStock: true,
+    stockCount: 40,
   },
   {
     id: '5',
@@ -69,6 +82,10 @@ export const products: Product[] = [
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
     colors: ['Black', 'Olive', 'Grey'],
     description: 'Engineered for the urban battlefield. Features tactical pockets and reinforced construction.',
+    featured: false,
+    newArrival: false,
+    inStock: true,
+    stockCount: 20,
   },
   {
     id: '6',
@@ -81,5 +98,9 @@ export const products: Product[] = [
     sizes: ['28', '30', '32', '34', '36', '38'],
     colors: ['Black', 'Olive', 'Tan'],
     description: 'Lightweight tactical shorts for hot weather operations. Multiple utility pockets included.',
+    featured: false,
+    newArrival: true,
+    inStock: false,
+    stockCount: 0,
   },
 ];
