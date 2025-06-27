@@ -7,13 +7,14 @@ interface HeaderProps {
   onMenuClick: () => void;
 }
 
-const Header: React.FC = ({ onMenuClick }) => {
+const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   const { state } = useCart();
   const navigate = useNavigate();
   const totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0);
 
   const handleAdminClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     navigate('/admin/login');
   };
 
@@ -42,6 +43,7 @@ const Header: React.FC = ({ onMenuClick }) => {
             onClick={handleAdminClick}
             className="p-2 text-gray-700 hover:text-orange-500 transition-colors duration-200 relative group"
             title="Admin Login"
+            type="button"
           >
             <User className="h-6 w-6" />
             <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
@@ -49,7 +51,7 @@ const Header: React.FC = ({ onMenuClick }) => {
             </span>
           </button>
           
-          <button className="p-2 text-gray-700 hover:text-orange-500 transition-colors duration-200">
+          <button className="p-2 text-gray-700 hover:text-orange-500 transition-colors duration-200" type="button">
             <Search className="h-6 w-6" />
           </button>
           
