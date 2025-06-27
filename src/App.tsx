@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
@@ -28,12 +27,12 @@ const App: React.FC = () => {
 
             <div className="flex-1 flex flex-col">
               <Routes>
-                {/* Admin Routes */}
+                {/* Admin Routes - These need to be first to avoid conflicts */}
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 <Route path="/admin/products" element={<ProductManager />} />
                 
-                {/* Public Routes */}
+                {/* Public Routes with Header and Footer */}
                 <Route path="/*" element={
                   <>
                     <Header onMenuClick={() => setSidebarOpen(true)} />

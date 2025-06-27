@@ -1,4 +1,3 @@
-// src/components/Header.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, User, Search, ShoppingCart } from 'lucide-react';
@@ -39,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
             title="Admin Login"
           >
             <User className="h-6 w-6" />
-            <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+            <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
               Admin Login
             </span>
           </Link>
