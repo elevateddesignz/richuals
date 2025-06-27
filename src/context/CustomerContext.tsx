@@ -6,6 +6,7 @@ interface CustomerProfile {
   firstName: string;
   lastName: string;
   email: string;
+  username: string;
   phone?: string;
   dateOfBirth?: string;
   joinDate: string;
@@ -63,7 +64,7 @@ interface CustomerState {
 
 interface CustomerContextType {
   state: CustomerState;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (emailOrUsername: string, password: string) => Promise<boolean>;
   register: (userData: RegisterData) => Promise<boolean>;
   logout: () => void;
   updateProfile: (updates: Partial<CustomerProfile>) => void;
@@ -79,6 +80,7 @@ interface RegisterData {
   firstName: string;
   lastName: string;
   email: string;
+  username: string;
   password: string;
   phone?: string;
   newsletter?: boolean;
@@ -92,6 +94,7 @@ const mockCustomer: CustomerProfile = {
   firstName: 'John',
   lastName: 'Warrior',
   email: 'john.warrior@example.com',
+  username: 'johnwarrior',
   phone: '+1 (555) 123-4567',
   dateOfBirth: '1990-05-15',
   joinDate: '2024-01-15T10:30:00Z',
@@ -217,12 +220,12 @@ export const CustomerProvider: React.FC<{ children: ReactNode }> = ({ children }
     wishlist: []
   });
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (emailOrUsername: string, password: string): Promise<boolean> => {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Simple demo authentication
-    if (email === 'john.warrior@example.com' && password === 'warrior123') {
+    // Simple demo authentication - accept both email and username
+    if ((emailOrUsername === 'john.warrior@example.com' || emailOrUsername === 'johnwarrior') && password === 'warrior123') {
       setState(prev => ({
         ...prev,
         isAuthenticated: true,
@@ -244,6 +247,7 @@ export const CustomerProvider: React.FC<{ children: ReactNode }> = ({ children }
       firstName: userData.firstName,
       lastName: userData.lastName,
       email: userData.email,
+      username: userData.username,
       phone: userData.phone,
       joinDate: new Date().toISOString(),
       addresses: [],

@@ -7,12 +7,12 @@ interface AdminState {
   orders: Order[];
   subscribers: NewsletterSubscriber[];
   isAuthenticated: boolean;
-  currentUser: { username: string; role: string } | null;
+  currentUser: { email: string; username: string; role: string } | null;
 }
 
 interface AdminContextType {
   state: AdminState;
-  login: (username: string, password: string) => boolean;
+  login: (emailOrUsername: string, password: string) => boolean;
   logout: () => void;
   addProduct: (product: Omit<Product, 'id'>) => void;
   updateProduct: (id: string, product: Partial<Product>) => void;
@@ -98,13 +98,18 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     currentUser: null
   });
 
-  const login = (username: string, password: string): boolean => {
+  const login = (emailOrUsername: string, password: string): boolean => {
     // Simple authentication - in production, this would be handled by a backend
-    if (username === 'admin' && password === 'richuals2025') {
+    // Accept both email and username for admin
+    if ((emailOrUsername === 'admin' || emailOrUsername === 'admin@rich-u-als.com') && password === 'richuals2025') {
       setState(prev => ({
         ...prev,
         isAuthenticated: true,
-        currentUser: { username: 'admin', role: 'admin' }
+        currentUser: { 
+          email: 'admin@rich-u-als.com', 
+          username: 'admin',
+          role: 'admin' 
+        }
       }));
       return true;
     }

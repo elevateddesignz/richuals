@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff, AlertCircle, User, Phone, Shield } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, AlertCircle, User, Phone, Shield, AtSign } from 'lucide-react';
 import { useCustomer } from '../context/CustomerContext';
 import { useAdmin } from '../context/AdminContext';
 
@@ -11,7 +11,7 @@ const UnifiedLogin: React.FC = () => {
   const [error, setError] = useState('');
   
   const [loginData, setLoginData] = useState({
-    email: '',
+    emailOrUsername: '',
     password: ''
   });
 
@@ -19,6 +19,7 @@ const UnifiedLogin: React.FC = () => {
     firstName: '',
     lastName: '',
     email: '',
+    username: '',
     password: '',
     confirmPassword: '',
     phone: '',
@@ -45,16 +46,16 @@ const UnifiedLogin: React.FC = () => {
 
     try {
       // First try admin login
-      const adminSuccess = adminLogin(loginData.email, loginData.password);
+      const adminSuccess = adminLogin(loginData.emailOrUsername, loginData.password);
       if (adminSuccess) {
         // Admin login successful - will redirect via useEffect in component
         return;
       }
 
       // If admin login fails, try customer login
-      const customerSuccess = await customerLogin(loginData.email, loginData.password);
+      const customerSuccess = await customerLogin(loginData.emailOrUsername, loginData.password);
       if (!customerSuccess) {
-        setError('Invalid email or password');
+        setError('Invalid email/username or password');
       }
     } catch (err) {
       setError('Login failed. Please try again.');
@@ -77,6 +78,11 @@ const UnifiedLogin: React.FC = () => {
       return;
     }
 
+    if (registerData.username.length < 3) {
+      setError('Username must be at least 3 characters');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -84,6 +90,7 @@ const UnifiedLogin: React.FC = () => {
         firstName: registerData.firstName,
         lastName: registerData.lastName,
         email: registerData.email,
+        username: registerData.username,
         password: registerData.password,
         phone: registerData.phone,
         newsletter: registerData.newsletter
@@ -157,18 +164,18 @@ const UnifiedLogin: React.FC = () => {
           {isLogin ? (
             <form onSubmit={handleLogin} className="space-y-6">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address
+                <label htmlFor="emailOrUsername" className="block text-sm font-medium text-gray-700 mb-2">
+                  Email or Username
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <AtSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <input
-                    id="email"
-                    type="email"
-                    value={loginData.email}
-                    onChange={(e) => setLoginData(prev => ({ ...prev, email: e.target.value }))}
+                    id="emailOrUsername"
+                    type="text"
+                    value={loginData.emailOrUsername}
+                    onChange={(e) => setLoginData(prev => ({ ...prev, emailOrUsername: e.target.value }))}
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                    placeholder="Enter your email"
+                    placeholder="Enter your email or username"
                     required
                   />
                 </div>
@@ -276,6 +283,24 @@ const UnifiedLogin: React.FC = () => {
               </div>
 
               <div>
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+                  Username
+                </label>
+                <div className="relative">
+                  <AtSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <input
+                    id="username"
+                    type="text"
+                    value={registerData.username}
+                    onChange={(e) => setRegisterData(prev => ({ ...prev, username: e.target.value }))}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    placeholder="Choose a username"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                   Phone Number (Optional)
                 </label>
@@ -366,6 +391,7 @@ const UnifiedLogin: React.FC = () => {
                 <p className="text-sm font-medium text-blue-900">Customer Demo Account:</p>
               </div>
               <p className="text-sm font-mono text-blue-800">Email: john.warrior@example.com</p>
+              <p className="text-sm font-mono text-blue-800">Username: johnwarrior</p>
               <p className="text-sm font-mono text-blue-800">Password: warrior123</p>
             </div>
 
@@ -374,6 +400,7 @@ const UnifiedLogin: React.FC = () => {
                 <Shield className="h-4 w-4 text-orange-500" />
                 <p className="text-sm font-medium text-orange-900">Admin Demo Account:</p>
               </div>
+              <p className="text-sm font-mono text-orange-800">Email: admin@rich-u-als.com</p>
               <p className="text-sm font-mono text-orange-800">Username: admin</p>
               <p className="text-sm font-mono text-orange-800">Password: richuals2025</p>
             </div>

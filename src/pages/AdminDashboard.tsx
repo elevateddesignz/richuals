@@ -14,11 +14,11 @@ import {
 import { useAdmin } from '../context/AdminContext';
 
 const AdminDashboard: React.FC = () => {
-  const { state, logout } = useAdmin();
+  const { state, logout, updateOrderStatus, removeSubscriber } = useAdmin();
   const [activeTab, setActiveTab] = useState('overview');
 
   if (!state.isAuthenticated) {
-    return <Navigate to="/admin/login" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   const totalRevenue = state.orders.reduce((sum, order) => sum + order.total, 0);
@@ -318,7 +318,7 @@ const AdminDashboard: React.FC = () => {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <select
                             value={order.status}
-                            onChange={(e) => updateOrderStatus(order.id, e.target.value as Order['status'])}
+                            onChange={(e) => updateOrderStatus(order.id, e.target.value as any)}
                             className="text-xs font-semibold rounded-full px-2 py-1 border-0 focus:ring-2 focus:ring-orange-500"
                           >
                             <option value="pending">Pending</option>
