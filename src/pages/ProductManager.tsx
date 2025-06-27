@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import { ArrowLeft, Upload, X, Plus, Save, Eye, Trash2, AlertCircle, Check } from 'lucide-react';
+import { ArrowLeft, Upload, X, Plus, Save, Eye, Trash2, AlertCircle, Check, Package } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext';
 import { Product } from '../types';
 
@@ -12,6 +12,7 @@ const ProductManager: React.FC = () => {
   const [previewMode, setPreviewMode] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -47,7 +48,8 @@ const ProductManager: React.FC = () => {
       newErrors.push('Original price must be greater than current price');
     }
 
-    if (!formData.images.some(img => img.trim())) {
+    const validImages = formData.images.filter(img => img.trim());
+    if (validImages.length === 0) {
       newErrors.push('At least one image URL is required');
     }
 
@@ -55,11 +57,13 @@ const ProductManager: React.FC = () => {
       newErrors.push('Product description is required');
     }
 
-    if (!formData.sizes.some(size => size.trim())) {
+    const validSizes = formData.sizes.filter(size => size.trim());
+    if (validSizes.length === 0) {
       newErrors.push('At least one size is required');
     }
 
-    if (!formData.colors.some(color => color.trim())) {
+    const validColors = formData.colors.filter(color => color.trim());
+    if (validColors.length === 0) {
       newErrors.push('At least one color is required');
     }
 
@@ -67,21 +71,24 @@ const ProductManager: React.FC = () => {
     return newErrors.length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) {
       return;
     }
     
-    const productData = {
-      ...formData,
-      images: formData.images.filter(img => img.trim() !== ''),
-      sizes: formData.sizes.filter(size => size.trim() !== ''),
-      colors: formData.colors.filter(color => color.trim() !== '')
-    };
-
+    setIsSubmitting(true);
+    setErrors([]);
+    
     try {
+      const productData = {
+        ...formData,
+        images: formData.images.filter(img => img.trim() !== ''),
+        sizes: formData.sizes.filter(size => size.trim() !== ''),
+        colors: formData.colors.filter(color => color.trim() !== '')
+      };
+
       if (isEditing && editingProduct) {
         updateProduct(editingProduct.id, productData);
         setShowSuccess(true);
@@ -92,9 +99,14 @@ const ProductManager: React.FC = () => {
         setTimeout(() => setShowSuccess(false), 3000);
       }
 
-      resetForm();
+      // Reset form and go back to product list
+      setTimeout(() => {
+        resetForm();
+      }, 1000);
     } catch (error) {
       setErrors(['Failed to save product. Please try again.']);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -125,14 +137,14 @@ const ProductManager: React.FC = () => {
       name: product.name,
       price: product.price,
       originalPrice: product.originalPrice || 0,
-      images: product.images,
+      images: product.images.length > 0 ? product.images : [''],
       category: product.category,
-      sizes: product.sizes,
-      colors: product.colors,
+      sizes: product.sizes.length > 0 ? product.sizes : ['S', 'M', 'L', 'XL'],
+      colors: product.colors.length > 0 ? product.colors : ['Black'],
       description: product.description,
       featured: product.featured || false,
       newArrival: product.newArrival || false,
-      inStock: product.inStock || true,
+      inStock: product.inStock !== undefined ? product.inStock : true,
       stockCount: product.stockCount || 0
     });
     setEditingProduct(product);
@@ -317,8 +329,8 @@ const ProductManager: React.FC = () => {
                     <input
                       type="number"
                       step="0.01"
-                      min="0"
-                      value={formData.price}
+                      min="0.01"
+                      value={formData.price || ''}
                       onChange={(e) => setFormData(prev => ({ ...prev, price: parseFloat(e.target.value) || 0 }))}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                       required
@@ -335,7 +347,7 @@ const ProductManager: React.FC = () => {
                       type="number"
                       step="0.01"
                       min="0"
-                      value={formData.originalPrice}
+                      value={formData.originalPrice || ''}
                       onChange={(e) => setFormData(prev => ({ ...prev, originalPrice: parseFloat(e.target.value) || 0 }))}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                       disabled={previewMode}
@@ -350,7 +362,7 @@ const ProductManager: React.FC = () => {
                     <input
                       type="number"
                       min="0"
-                      value={formData.stockCount}
+                      value={formData.stockCount || ''}
                       onChange={(e) => setFormData(prev => ({ ...prev, stockCount: parseInt(e.target.value) || 0 }))}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                       disabled={previewMode}
@@ -551,15 +563,17 @@ const ProductManager: React.FC = () => {
                       type="button"
                       onClick={resetForm}
                       className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                      disabled={isSubmitting}
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
-                      className="flex items-center space-x-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg transition-colors duration-200"
+                      disabled={isSubmitting}
+                      className="flex items-center space-x-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 disabled:bg-orange-300 text-white font-bold rounded-lg transition-colors duration-200"
                     >
                       <Save className="h-4 w-4" />
-                      <span>{isEditing ? 'Update Product' : 'Add Product'}</span>
+                      <span>{isSubmitting ? 'Saving...' : (isEditing ? 'Update Product' : 'Add Product')}</span>
                     </button>
                   </div>
                 )}
@@ -690,68 +704,7 @@ const ProductManager: React.FC = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {state.products.map((product) => (
-            <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow duration-200">
-              <img
-                src={product.images[0]}
-                alt={product.name}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-semibold text-gray-900 truncate">{product.name}</h3>
-                  <div className="flex space-x-1">
-                    {product.featured && (
-                      <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
-                        Featured
-                      </span>
-                    )}
-                    {product.newArrival && (
-                      <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
-                        New
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <p className="text-gray-600 text-sm mb-4 capitalize">{product.category}</p>
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <span className="text-lg font-bold text-gray-900">${product.price}</span>
-                    {product.originalPrice && (
-                      <span className="text-sm text-gray-500 line-through ml-2">
-                        ${product.originalPrice}
-                      </span>
-                    )}
-                  </div>
-                  <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                    product.inStock ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                  }`}>
-                    {product.inStock ? `${product.stockCount || 0} in stock` : 'Out of Stock'}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <button
-                    onClick={() => handleEdit(product)}
-                    className="flex items-center space-x-1 text-orange-600 hover:text-orange-800 font-medium transition-colors duration-200"
-                  >
-                    <Edit3 className="h-4 w-4" />
-                    <span>Edit</span>
-                  </button>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    className="flex items-center space-x-1 text-red-600 hover:text-red-800 font-medium transition-colors duration-200"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                    <span>Delete</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {state.products.length === 0 && (
+        {state.products.length === 0 ? (
           <div className="text-center py-12">
             <Package className="h-16 w-16 text-gray-300 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">No products yet</h3>
@@ -762,6 +715,67 @@ const ProductManager: React.FC = () => {
             >
               Add Your First Product
             </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {state.products.map((product) => (
+              <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow duration-200">
+                <img
+                  src={product.images[0]}
+                  alt={product.name}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900 truncate">{product.name}</h3>
+                    <div className="flex space-x-1">
+                      {product.featured && (
+                        <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
+                          Featured
+                        </span>
+                      )}
+                      {product.newArrival && (
+                        <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
+                          New
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-gray-600 text-sm mb-4 capitalize">{product.category}</p>
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <span className="text-lg font-bold text-gray-900">${product.price}</span>
+                      {product.originalPrice && (
+                        <span className="text-sm text-gray-500 line-through ml-2">
+                          ${product.originalPrice}
+                        </span>
+                      )}
+                    </div>
+                    <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                      product.inStock ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                    }`}>
+                      {product.inStock ? `${product.stockCount || 0} in stock` : 'Out of Stock'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <button
+                      onClick={() => handleEdit(product)}
+                      className="flex items-center space-x-1 text-orange-600 hover:text-orange-800 font-medium transition-colors duration-200"
+                    >
+                      <Eye className="h-4 w-4" />
+                      <span>Edit</span>
+                    </button>
+                    <button
+                      onClick={() => handleDelete(product.id)}
+                      className="flex items-center space-x-1 text-red-600 hover:text-red-800 font-medium transition-colors duration-200"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>
