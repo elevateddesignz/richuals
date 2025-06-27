@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import { ArrowLeft, Upload, X, Plus, Save, Eye, Trash2 } from 'lucide-react';
+import { ArrowLeft, Upload, X, Plus, Save, Eye, Trash2, AlertCircle, Check } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext';
 import { Product } from '../types';
 
@@ -10,6 +10,8 @@ const ProductManager: React.FC = () => {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -30,8 +32,47 @@ const ProductManager: React.FC = () => {
     return <Navigate to="/login" replace />;
   }
 
+  const validateForm = (): boolean => {
+    const newErrors: string[] = [];
+
+    if (!formData.name.trim()) {
+      newErrors.push('Product name is required');
+    }
+
+    if (formData.price <= 0) {
+      newErrors.push('Price must be greater than 0');
+    }
+
+    if (formData.originalPrice > 0 && formData.originalPrice <= formData.price) {
+      newErrors.push('Original price must be greater than current price');
+    }
+
+    if (!formData.images.some(img => img.trim())) {
+      newErrors.push('At least one image URL is required');
+    }
+
+    if (!formData.description.trim()) {
+      newErrors.push('Product description is required');
+    }
+
+    if (!formData.sizes.some(size => size.trim())) {
+      newErrors.push('At least one size is required');
+    }
+
+    if (!formData.colors.some(color => color.trim())) {
+      newErrors.push('At least one color is required');
+    }
+
+    setErrors(newErrors);
+    return newErrors.length === 0;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
     
     const productData = {
       ...formData,
@@ -40,15 +81,21 @@ const ProductManager: React.FC = () => {
       colors: formData.colors.filter(color => color.trim() !== '')
     };
 
-    if (isEditing && editingProduct) {
-      updateProduct(editingProduct.id, productData);
-      alert('Product updated successfully!');
-    } else {
-      addProduct(productData);
-      alert('Product added successfully!');
-    }
+    try {
+      if (isEditing && editingProduct) {
+        updateProduct(editingProduct.id, productData);
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 3000);
+      } else {
+        addProduct(productData);
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 3000);
+      }
 
-    resetForm();
+      resetForm();
+    } catch (error) {
+      setErrors(['Failed to save product. Please try again.']);
+    }
   };
 
   const resetForm = () => {
@@ -70,6 +117,7 @@ const ProductManager: React.FC = () => {
     setEditingProduct(null);
     setShowForm(false);
     setPreviewMode(false);
+    setErrors([]);
   };
 
   const handleEdit = (product: Product) => {
@@ -90,12 +138,18 @@ const ProductManager: React.FC = () => {
     setEditingProduct(product);
     setIsEditing(true);
     setShowForm(true);
+    setErrors([]);
   };
 
   const handleDelete = (productId: string) => {
     if (window.confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
-      deleteProduct(productId);
-      alert('Product deleted successfully!');
+      try {
+        deleteProduct(productId);
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 3000);
+      } catch (error) {
+        setErrors(['Failed to delete product. Please try again.']);
+      }
     }
   };
 
@@ -107,10 +161,12 @@ const ProductManager: React.FC = () => {
   };
 
   const removeImageField = (index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      images: prev.images.filter((_, i) => i !== index)
-    }));
+    if (formData.images.length > 1) {
+      setFormData(prev => ({
+        ...prev,
+        images: prev.images.filter((_, i) => i !== index)
+      }));
+    }
   };
 
   const updateImageField = (index: number, value: string) => {
@@ -128,10 +184,12 @@ const ProductManager: React.FC = () => {
   };
 
   const removeSizeField = (index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      sizes: prev.sizes.filter((_, i) => i !== index)
-    }));
+    if (formData.sizes.length > 1) {
+      setFormData(prev => ({
+        ...prev,
+        sizes: prev.sizes.filter((_, i) => i !== index)
+      }));
+    }
   };
 
   const updateSizeField = (index: number, value: string) => {
@@ -149,10 +207,12 @@ const ProductManager: React.FC = () => {
   };
 
   const removeColorField = (index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      colors: prev.colors.filter((_, i) => i !== index)
-    }));
+    if (formData.colors.length > 1) {
+      setFormData(prev => ({
+        ...prev,
+        colors: prev.colors.filter((_, i) => i !== index)
+      }));
+    }
   };
 
   const updateColorField = (index: number, value: string) => {
@@ -166,6 +226,29 @@ const ProductManager: React.FC = () => {
     return (
       <div className="min-h-screen bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Success Message */}
+          {showSuccess && (
+            <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 z-50">
+              <Check className="h-5 w-5" />
+              <span>{isEditing ? 'Product updated successfully!' : 'Product added successfully!'}</span>
+            </div>
+          )}
+
+          {/* Error Messages */}
+          {errors.length > 0 && (
+            <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+              <div className="flex items-center space-x-2 mb-2">
+                <AlertCircle className="h-5 w-5 text-red-500" />
+                <h3 className="text-sm font-medium text-red-800">Please fix the following errors:</h3>
+              </div>
+              <ul className="list-disc list-inside text-sm text-red-700 space-y-1">
+                {errors.map((error, index) => (
+                  <li key={index}>{error}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center space-x-4">
               <button
@@ -206,6 +289,7 @@ const ProductManager: React.FC = () => {
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                       required
                       disabled={previewMode}
+                      placeholder="Enter product name"
                     />
                   </div>
 
@@ -233,11 +317,13 @@ const ProductManager: React.FC = () => {
                     <input
                       type="number"
                       step="0.01"
+                      min="0"
                       value={formData.price}
-                      onChange={(e) => setFormData(prev => ({ ...prev, price: parseFloat(e.target.value) }))}
+                      onChange={(e) => setFormData(prev => ({ ...prev, price: parseFloat(e.target.value) || 0 }))}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                       required
                       disabled={previewMode}
+                      placeholder="0.00"
                     />
                   </div>
 
@@ -248,10 +334,12 @@ const ProductManager: React.FC = () => {
                     <input
                       type="number"
                       step="0.01"
+                      min="0"
                       value={formData.originalPrice}
-                      onChange={(e) => setFormData(prev => ({ ...prev, originalPrice: parseFloat(e.target.value) }))}
+                      onChange={(e) => setFormData(prev => ({ ...prev, originalPrice: parseFloat(e.target.value) || 0 }))}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                       disabled={previewMode}
+                      placeholder="0.00"
                     />
                   </div>
 
@@ -261,10 +349,12 @@ const ProductManager: React.FC = () => {
                     </label>
                     <input
                       type="number"
+                      min="0"
                       value={formData.stockCount}
-                      onChange={(e) => setFormData(prev => ({ ...prev, stockCount: parseInt(e.target.value) }))}
+                      onChange={(e) => setFormData(prev => ({ ...prev, stockCount: parseInt(e.target.value) || 0 }))}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                       disabled={previewMode}
+                      placeholder="0"
                     />
                   </div>
                 </div>
@@ -280,6 +370,7 @@ const ProductManager: React.FC = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                     required
                     disabled={previewMode}
+                    placeholder="Enter product description"
                   />
                 </div>
 
@@ -307,7 +398,7 @@ const ProductManager: React.FC = () => {
                           type="url"
                           value={image}
                           onChange={(e) => updateImageField(index, e.target.value)}
-                          placeholder="Enter image URL"
+                          placeholder="Enter image URL (e.g., https://images.pexels.com/...)"
                           className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                           disabled={previewMode}
                         />
@@ -571,6 +662,14 @@ const ProductManager: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Success Message */}
+        {showSuccess && (
+          <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 z-50">
+            <Check className="h-5 w-5" />
+            <span>Product deleted successfully!</span>
+          </div>
+        )}
+
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center space-x-4">
             <Link
@@ -593,7 +692,7 @@ const ProductManager: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {state.products.map((product) => (
-            <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+            <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow duration-200">
               <img
                 src={product.images[0]}
                 alt={product.name}
@@ -601,7 +700,7 @@ const ProductManager: React.FC = () => {
               />
               <div className="p-6">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 truncate">{product.name}</h3>
                   <div className="flex space-x-1">
                     {product.featured && (
                       <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
@@ -634,14 +733,14 @@ const ProductManager: React.FC = () => {
                 <div className="flex justify-between">
                   <button
                     onClick={() => handleEdit(product)}
-                    className="flex items-center space-x-1 text-orange-600 hover:text-orange-800 font-medium"
+                    className="flex items-center space-x-1 text-orange-600 hover:text-orange-800 font-medium transition-colors duration-200"
                   >
                     <Edit3 className="h-4 w-4" />
                     <span>Edit</span>
                   </button>
                   <button
                     onClick={() => handleDelete(product.id)}
-                    className="flex items-center space-x-1 text-red-600 hover:text-red-800 font-medium"
+                    className="flex items-center space-x-1 text-red-600 hover:text-red-800 font-medium transition-colors duration-200"
                   >
                     <Trash2 className="h-4 w-4" />
                     <span>Delete</span>
@@ -651,6 +750,20 @@ const ProductManager: React.FC = () => {
             </div>
           ))}
         </div>
+
+        {state.products.length === 0 && (
+          <div className="text-center py-12">
+            <Package className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">No products yet</h3>
+            <p className="text-gray-600 mb-6">Get started by adding your first product</p>
+            <button
+              onClick={() => setShowForm(true)}
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200"
+            >
+              Add Your First Product
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

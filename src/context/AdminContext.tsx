@@ -26,11 +26,18 @@ interface AdminContextType {
   getTotalRevenue: () => number;
   getRevenueByMonth: () => { month: string; revenue: number }[];
   getTopProducts: () => { product: Product; sales: number }[];
+  exportOrders: () => void;
+  exportSubscribers: () => void;
+  sendNewsletter: (subject: string, content: string) => void;
+  bulkUpdateOrderStatus: (orderIds: string[], status: Order['status']) => void;
+  getOrderStats: () => { total: number; pending: number; processing: number; shipped: number; delivered: number; cancelled: number };
+  searchOrders: (query: string) => Order[];
+  filterOrdersByDateRange: (startDate: string, endDate: string) => Order[];
 }
 
 const AdminContext = createContext<AdminContextType | null>(null);
 
-// Enhanced mock orders with more data
+// Enhanced mock orders with more comprehensive data
 const mockOrders: Order[] = [
   {
     id: '1',
@@ -152,6 +159,52 @@ const mockOrders: Order[] = [
       zipCode: '80201',
       country: 'USA'
     }
+  },
+  {
+    id: '6',
+    customerName: 'Emily Davis',
+    customerEmail: 'emily@example.com',
+    items: [
+      {
+        product: initialProducts[1],
+        quantity: 2,
+        size: 'S',
+        color: 'Black'
+      }
+    ],
+    total: 170,
+    status: 'delivered',
+    orderDate: '2025-01-10T16:20:00Z',
+    shippingAddress: {
+      street: '987 Cedar Ln',
+      city: 'Seattle',
+      state: 'WA',
+      zipCode: '98101',
+      country: 'USA'
+    }
+  },
+  {
+    id: '7',
+    customerName: 'Robert Taylor',
+    customerEmail: 'robert@example.com',
+    items: [
+      {
+        product: initialProducts[2],
+        quantity: 1,
+        size: '34',
+        color: 'Olive'
+      }
+    ],
+    total: 95,
+    status: 'shipped',
+    orderDate: '2025-01-09T12:45:00Z',
+    shippingAddress: {
+      street: '246 Birch St',
+      city: 'Portland',
+      state: 'OR',
+      zipCode: '97201',
+      country: 'USA'
+    }
   }
 ];
 
@@ -179,6 +232,18 @@ const mockSubscribers: NewsletterSubscriber[] = [
     email: 'subscriber4@example.com',
     subscribeDate: '2025-01-14T16:45:00Z',
     active: true
+  },
+  {
+    id: '5',
+    email: 'warrior@example.com',
+    subscribeDate: '2025-01-05T10:20:00Z',
+    active: true
+  },
+  {
+    id: '6',
+    email: 'tactical@example.com',
+    subscribeDate: '2025-01-07T13:30:00Z',
+    active: true
   }
 ];
 
@@ -192,7 +257,6 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   });
 
   const login = (emailOrUsername: string, password: string): boolean => {
-    // Simple authentication - in production, this would be handled by a backend
     if ((emailOrUsername === 'admin' || emailOrUsername === 'admin@rich-u-als.com') && password === 'richuals2025') {
       setState(prev => ({
         ...prev,
@@ -257,6 +321,15 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       ...prev,
       orders: prev.orders.map(order =>
         order.id === orderId ? { ...order, status } : order
+      )
+    }));
+  };
+
+  const bulkUpdateOrderStatus = (orderIds: string[], status: Order['status']) => {
+    setState(prev => ({
+      ...prev,
+      orders: prev.orders.map(order =>
+        orderIds.includes(order.id) ? { ...order, status } : order
       )
     }));
   };
@@ -336,6 +409,100 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       .slice(0, 5);
   };
 
+  const getOrderStats = () => {
+    const stats = {
+      total: state.orders.length,
+      pending: 0,
+      processing: 0,
+      shipped: 0,
+      delivered: 0,
+      cancelled: 0
+    };
+
+    state.orders.forEach(order => {
+      stats[order.status]++;
+    });
+
+    return stats;
+  };
+
+  const searchOrders = (query: string): Order[] => {
+    const lowercaseQuery = query.toLowerCase();
+    return state.orders.filter(order =>
+      order.customerName.toLowerCase().includes(lowercaseQuery) ||
+      order.customerEmail.toLowerCase().includes(lowercaseQuery) ||
+      order.id.includes(lowercaseQuery)
+    );
+  };
+
+  const filterOrdersByDateRange = (startDate: string, endDate: string): Order[] => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    return state.orders.filter(order => {
+      const orderDate = new Date(order.orderDate);
+      return orderDate >= start && orderDate <= end;
+    });
+  };
+
+  const exportOrders = () => {
+    const csvContent = [
+      ['Order ID', 'Customer Name', 'Customer Email', 'Total', 'Status', 'Order Date', 'Items'].join(','),
+      ...state.orders.map(order => [
+        order.id,
+        order.customerName,
+        order.customerEmail,
+        order.total.toFixed(2),
+        order.status,
+        new Date(order.orderDate).toLocaleDateString(),
+        order.items.map(item => `${item.product.name} (${item.quantity})`).join('; ')
+      ].join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `orders-export-${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  };
+
+  const exportSubscribers = () => {
+    const csvContent = [
+      ['Email', 'Subscribe Date', 'Status'].join(','),
+      ...state.subscribers.map(sub => [
+        sub.email,
+        new Date(sub.subscribeDate).toLocaleDateString(),
+        sub.active ? 'Active' : 'Inactive'
+      ].join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `subscribers-export-${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  };
+
+  const sendNewsletter = (subject: string, content: string) => {
+    const activeSubscribers = state.subscribers.filter(sub => sub.active);
+    
+    // Simulate sending newsletter
+    console.log(`Sending newsletter to ${activeSubscribers.length} subscribers:`);
+    console.log(`Subject: ${subject}`);
+    console.log(`Content: ${content}`);
+    
+    // In a real app, this would integrate with an email service
+    alert(`Newsletter "${subject}" sent successfully to ${activeSubscribers.length} subscribers!`);
+  };
+
   return (
     <AdminContext.Provider value={{
       state,
@@ -352,7 +519,14 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       getOrderById,
       getTotalRevenue,
       getRevenueByMonth,
-      getTopProducts
+      getTopProducts,
+      exportOrders,
+      exportSubscribers,
+      sendNewsletter,
+      bulkUpdateOrderStatus,
+      getOrderStats,
+      searchOrders,
+      filterOrdersByDateRange
     }}>
       {children}
     </AdminContext.Provider>

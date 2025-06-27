@@ -17,7 +17,13 @@ import {
   Filter,
   Download,
   Calendar,
-  AlertCircle
+  AlertCircle,
+  Send,
+  CheckSquare,
+  Square,
+  MoreHorizontal,
+  FileText,
+  Settings
 } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext';
 
@@ -31,7 +37,12 @@ const AdminDashboard: React.FC = () => {
     updateProductPrice,
     deleteProduct,
     getTotalRevenue,
-    getTopProducts
+    getTopProducts,
+    exportOrders,
+    exportSubscribers,
+    sendNewsletter,
+    bulkUpdateOrderStatus,
+    getOrderStats
   } = useAdmin();
   
   const [activeTab, setActiveTab] = useState('overview');
@@ -39,13 +50,17 @@ const AdminDashboard: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [editingPrice, setEditingPrice] = useState<string | null>(null);
   const [priceForm, setPriceForm] = useState({ price: 0, originalPrice: 0 });
+  const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
+  const [showNewsletterModal, setShowNewsletterModal] = useState(false);
+  const [newsletterForm, setNewsletterForm] = useState({ subject: '', content: '' });
+  const [showBulkActions, setShowBulkActions] = useState(false);
 
   if (!state.isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
   const totalRevenue = getTotalRevenue();
-  const pendingOrders = state.orders.filter(order => order.status === 'pending').length;
+  const orderStats = getOrderStats();
   const totalProducts = state.products.length;
   const totalSubscribers = state.subscribers.filter(sub => sub.active).length;
   const topProducts = getTopProducts();
@@ -61,6 +76,7 @@ const AdminDashboard: React.FC = () => {
   const handleDeleteOrder = (orderId: string) => {
     if (window.confirm('Are you sure you want to delete this order? This action cannot be undone.')) {
       deleteOrder(orderId);
+      setSelectedOrders(prev => prev.filter(id => id !== orderId));
     }
   };
 
@@ -82,6 +98,45 @@ const AdminDashboard: React.FC = () => {
     updateProductPrice(productId, priceForm.price, priceForm.originalPrice || undefined);
     setEditingPrice(null);
     setPriceForm({ price: 0, originalPrice: 0 });
+  };
+
+  const handleSelectOrder = (orderId: string) => {
+    setSelectedOrders(prev => 
+      prev.includes(orderId) 
+        ? prev.filter(id => id !== orderId)
+        : [...prev, orderId]
+    );
+  };
+
+  const handleSelectAllOrders = () => {
+    if (selectedOrders.length === filteredOrders.length) {
+      setSelectedOrders([]);
+    } else {
+      setSelectedOrders(filteredOrders.map(order => order.id));
+    }
+  };
+
+  const handleBulkStatusUpdate = (status: string) => {
+    if (selectedOrders.length === 0) {
+      alert('Please select orders to update');
+      return;
+    }
+    
+    bulkUpdateOrderStatus(selectedOrders, status as any);
+    setSelectedOrders([]);
+    setShowBulkActions(false);
+    alert(`Updated ${selectedOrders.length} orders to ${status}`);
+  };
+
+  const handleSendNewsletter = () => {
+    if (!newsletterForm.subject || !newsletterForm.content) {
+      alert('Please fill in both subject and content');
+      return;
+    }
+    
+    sendNewsletter(newsletterForm.subject, newsletterForm.content);
+    setNewsletterForm({ subject: '', content: '' });
+    setShowNewsletterModal(false);
   };
 
   const getStatusBadgeColor = (status: string) => {
@@ -164,9 +219,9 @@ const AdminDashboard: React.FC = () => {
               <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">Pending Orders</p>
-                    <p className="text-2xl font-bold text-gray-900">{pendingOrders}</p>
-                    <p className="text-xs text-orange-600 mt-1">Needs attention</p>
+                    <p className="text-sm text-gray-600">Total Orders</p>
+                    <p className="text-2xl font-bold text-gray-900">{orderStats.total}</p>
+                    <p className="text-xs text-orange-600 mt-1">{orderStats.pending} pending</p>
                   </div>
                   <ShoppingCart className="h-8 w-8 text-orange-500" />
                 </div>
@@ -191,6 +246,37 @@ const AdminDashboard: React.FC = () => {
                     <p className="text-xs text-purple-600 mt-1">Newsletter reach</p>
                   </div>
                   <Users className="h-8 w-8 text-purple-500" />
+                </div>
+              </div>
+            </div>
+
+            {/* Order Status Breakdown */}
+            <div className="bg-white rounded-lg shadow-md border border-gray-100">
+              <div className="p-6 border-b border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900">Order Status Breakdown</h3>
+              </div>
+              <div className="p-6">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-yellow-600">{orderStats.pending}</div>
+                    <div className="text-sm text-gray-600">Pending</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-600">{orderStats.processing}</div>
+                    <div className="text-sm text-gray-600">Processing</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-600">{orderStats.shipped}</div>
+                    <div className="text-sm text-gray-600">Shipped</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600">{orderStats.delivered}</div>
+                    <div className="text-sm text-gray-600">Delivered</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-red-600">{orderStats.cancelled}</div>
+                    <div className="text-sm text-gray-600">Cancelled</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -398,10 +484,48 @@ const AdminDashboard: React.FC = () => {
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold text-gray-900">Order Management</h2>
               <div className="flex space-x-4">
-                <button className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200">
+                <button 
+                  onClick={exportOrders}
+                  className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200"
+                >
                   <Download className="h-4 w-4" />
-                  <span>Export</span>
+                  <span>Export Orders</span>
                 </button>
+                {selectedOrders.length > 0 && (
+                  <div className="relative">
+                    <button
+                      onClick={() => setShowBulkActions(!showBulkActions)}
+                      className="flex items-center space-x-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                    >
+                      <Settings className="h-4 w-4" />
+                      <span>Bulk Actions ({selectedOrders.length})</span>
+                    </button>
+                    {showBulkActions && (
+                      <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border border-gray-200">
+                        <div className="py-1">
+                          <button
+                            onClick={() => handleBulkStatusUpdate('processing')}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                          >
+                            Mark as Processing
+                          </button>
+                          <button
+                            onClick={() => handleBulkStatusUpdate('shipped')}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                          >
+                            Mark as Shipped
+                          </button>
+                          <button
+                            onClick={() => handleBulkStatusUpdate('delivered')}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                          >
+                            Mark as Delivered
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -443,6 +567,18 @@ const AdminDashboard: React.FC = () => {
                 <table className="w-full">
                   <thead className="bg-gray-50">
                     <tr>
+                      <th className="px-6 py-3 text-left">
+                        <button
+                          onClick={handleSelectAllOrders}
+                          className="flex items-center space-x-2"
+                        >
+                          {selectedOrders.length === filteredOrders.length && filteredOrders.length > 0 ? (
+                            <CheckSquare className="h-4 w-4 text-orange-500" />
+                          ) : (
+                            <Square className="h-4 w-4 text-gray-400" />
+                          )}
+                        </button>
+                      </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
@@ -454,7 +590,19 @@ const AdminDashboard: React.FC = () => {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {filteredOrders.map((order) => (
-                      <tr key={order.id}>
+                      <tr key={order.id} className={selectedOrders.includes(order.id) ? 'bg-orange-50' : ''}>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <button
+                            onClick={() => handleSelectOrder(order.id)}
+                            className="flex items-center"
+                          >
+                            {selectedOrders.includes(order.id) ? (
+                              <CheckSquare className="h-4 w-4 text-orange-500" />
+                            ) : (
+                              <Square className="h-4 w-4 text-gray-400" />
+                            )}
+                          </button>
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#{order.id}</td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div>
@@ -508,11 +656,17 @@ const AdminDashboard: React.FC = () => {
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold text-gray-900">Newsletter Subscribers</h2>
               <div className="flex space-x-4">
-                <button className="flex items-center space-x-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors duration-200">
-                  <Mail className="h-4 w-4" />
+                <button 
+                  onClick={() => setShowNewsletterModal(true)}
+                  className="flex items-center space-x-2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                >
+                  <Send className="h-4 w-4" />
                   <span>Send Newsletter</span>
                 </button>
-                <button className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200">
+                <button 
+                  onClick={exportSubscribers}
+                  className="flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200"
+                >
                   <Download className="h-4 w-4" />
                   <span>Export List</span>
                 </button>
@@ -563,6 +717,51 @@ const AdminDashboard: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Newsletter Modal */}
+      {showNewsletterModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Send Newsletter</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                <input
+                  type="text"
+                  value={newsletterForm.subject}
+                  onChange={(e) => setNewsletterForm(prev => ({ ...prev, subject: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  placeholder="Newsletter subject"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                <textarea
+                  value={newsletterForm.content}
+                  onChange={(e) => setNewsletterForm(prev => ({ ...prev, content: e.target.value }))}
+                  rows={4}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  placeholder="Newsletter content"
+                />
+              </div>
+              <div className="flex justify-end space-x-3">
+                <button
+                  onClick={() => setShowNewsletterModal(false)}
+                  className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSendNewsletter}
+                  className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg"
+                >
+                  Send Newsletter
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
