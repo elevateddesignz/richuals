@@ -1,18 +1,32 @@
 // src/pages/Home.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Star, Truck, Shield, Award } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Star, Truck, Shield, Award, Play, ChevronDown } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import NewsletterPopup from '../components/NewsletterPopup';
 import { products } from '../data/products';
 
 const Home: React.FC = () => {
   const [showNewsletterPopup, setShowNewsletterPopup] = useState(false);
+  const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const featuredRef = useRef<HTMLDivElement>(null);
+
+  const heroImages = [
+    'https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg',
+    'https://images.pexels.com/photos/8532618/pexels-photo-8532618.jpeg',
+    'https://images.pexels.com/photos/8532620/pexels-photo-8532620.jpeg'
+  ];
 
   useEffect(() => {
     const timer = setTimeout(() => setShowNewsletterPopup(true), 3000);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
   }, []);
 
   const featuredProducts = products.filter(p => p.featured);
@@ -27,89 +41,205 @@ const Home: React.FC = () => {
     }
   };
 
+  const scrollToProducts = () => {
+    const productsSection = document.getElementById('featured-products');
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-orange-50 to-white py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-left">
-              <h1 className="font-military text-5xl lg:text-7xl font-black mb-6 tracking-wider text-gray-900">
-                RICH-U-ALS
-              </h1>
-              <p className="text-xl lg:text-2xl mb-8 text-gray-700 leading-relaxed max-w-2xl">
-                Every action, habit, and moment of discipline is a step towards
-                <span className="text-orange-500 font-semibold"> wealth, success, and fulfillment.</span>
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link
-                  to="/shop"
-                  className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-                >
-                  SHOP COLLECTION
-                </Link>
-                <Link
-                  to="/about"
-                  className="border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-bold py-4 px-8 rounded-lg transition-all duration-300"
-                >
-                  OUR STORY
-                </Link>
-              </div>
+      <section className="relative min-h-screen bg-black overflow-hidden">
+        {/* Background Image Carousel */}
+        <div className="absolute inset-0">
+          {heroImages.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentHeroImage ? 'opacity-40' : 'opacity-0'
+              }`}
+            >
+              <img
+                src={image}
+                alt={`Hero ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
             </div>
-            <div className="relative">
-              <div className="bg-gradient-to-br from-orange-100 to-orange-50 rounded-3xl p-8 shadow-2xl">
-                <img
-                  src="https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg"
-                  alt="RICH-U-ALS Hero Product"
-                  className="w-full h-96 object-cover rounded-2xl shadow-lg"
-                />
+          ))}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 min-h-screen flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="text-center lg:text-left">
+                {/* Badge */}
+                <div className="inline-flex items-center px-4 py-2 bg-orange-500/20 border border-orange-500/30 rounded-full text-orange-400 text-sm font-semibold mb-6 backdrop-blur-sm">
+                  <span className="w-2 h-2 bg-orange-500 rounded-full mr-2 animate-pulse"></span>
+                  TACTICAL EXCELLENCE SINCE 2019
+                </div>
+
+                {/* Main Heading */}
+                <h1 className="font-military text-6xl lg:text-8xl font-black mb-6 tracking-wider">
+                  <span className="text-white">RICH</span>
+                  <span className="text-orange-500">-U-</span>
+                  <span className="text-white">ALS</span>
+                </h1>
+
+                {/* Subheading */}
+                <p className="text-xl lg:text-2xl mb-4 text-gray-300 leading-relaxed max-w-2xl font-medium">
+                  FORGE YOUR PATH TO
+                </p>
+                <p className="text-2xl lg:text-3xl mb-8 text-orange-500 font-bold leading-relaxed max-w-2xl">
+                  WEALTH • SUCCESS • FULFILLMENT
+                </p>
+
+                {/* Description */}
+                <p className="text-lg text-gray-400 mb-10 max-w-xl leading-relaxed">
+                  Military-grade tactical clothing designed for the modern warrior. 
+                  Every thread engineered for excellence, every design built for victory.
+                </p>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+                  <Link
+                    to="/shop"
+                    className="group bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden"
+                  >
+                    <span className="relative z-10">DEPLOY TO SHOP</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                  </Link>
+                  
+                  <button className="group flex items-center justify-center space-x-2 border-2 border-white/30 text-white hover:bg-white hover:text-black font-bold py-4 px-8 rounded-lg transition-all duration-300 backdrop-blur-sm">
+                    <Play className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />
+                    <span>WATCH STORY</span>
+                  </button>
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-orange-500 mb-1">50K+</div>
+                    <div className="text-xs text-gray-400 font-medium uppercase tracking-wide">Warriors</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-orange-500 mb-1">100%</div>
+                    <div className="text-xs text-gray-400 font-medium uppercase tracking-wide">Quality</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-orange-500 mb-1">24/7</div>
+                    <div className="text-xs text-gray-400 font-medium uppercase tracking-wide">Ready</div>
+                  </div>
+                </div>
               </div>
-              <div className="absolute -top-4 -right-4 bg-orange-500 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg">
-                NEW ARRIVAL
+
+              {/* Hero Product Showcase */}
+              <div className="relative lg:block hidden">
+                <div className="relative">
+                  {/* Main Product Image */}
+                  <div className="bg-gradient-to-br from-orange-500/20 to-orange-600/10 rounded-3xl p-8 backdrop-blur-sm border border-orange-500/20">
+                    <img
+                      src={heroImages[currentHeroImage]}
+                      alt="Featured Product"
+                      className="w-full h-96 object-cover rounded-2xl shadow-2xl"
+                    />
+                  </div>
+
+                  {/* Floating Elements */}
+                  <div className="absolute -top-4 -right-4 bg-orange-500 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg animate-pulse">
+                    NEW DROP
+                  </div>
+                  
+                  <div className="absolute -bottom-4 -left-4 bg-black/80 backdrop-blur-sm text-white px-6 py-3 rounded-xl border border-orange-500/30">
+                    <div className="text-sm text-gray-400">Starting at</div>
+                    <div className="text-xl font-bold text-orange-500">$45</div>
+                  </div>
+
+                  {/* Carousel Indicators */}
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    {heroImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentHeroImage(index)}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          index === currentHeroImage ? 'bg-orange-500 w-6' : 'bg-white/50'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Scroll Indicator */}
+        <button
+          onClick={scrollToProducts}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/70 hover:text-orange-500 transition-colors duration-300 animate-bounce"
+        >
+          <ChevronDown className="h-8 w-8" />
+        </button>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-white border-t border-gray-100">
+      <section className="py-20 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-military text-3xl font-bold mb-4 text-orange-500">
+              TACTICAL ADVANTAGES
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Every piece of gear is engineered with military precision and tested in real-world conditions.
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center group">
-              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-500 transition-colors duration-300">
-                <Truck className="h-8 w-8 text-orange-500 group-hover:text-white" />
+              <div className="bg-orange-500/20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-500 transition-all duration-300 border border-orange-500/30">
+                <Truck className="h-10 w-10 text-orange-500 group-hover:text-white transition-colors duration-300" />
               </div>
-              <h3 className="font-military text-lg font-bold mb-2 text-gray-900">FREE SHIPPING</h3>
-              <p className="text-gray-600">Free shipping on all orders over $75. Fast, reliable delivery nationwide.</p>
+              <h3 className="font-military text-xl font-bold mb-4 text-white">RAPID DEPLOYMENT</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Free tactical shipping on all orders over $75. Mission-critical delivery nationwide in 2-3 days.
+              </p>
             </div>
+
             <div className="text-center group">
-              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-500 transition-colors duration-300">
-                <Shield className="h-8 w-8 text-orange-500 group-hover:text-white" />
+              <div className="bg-orange-500/20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-500 transition-all duration-300 border border-orange-500/30">
+                <Shield className="h-10 w-10 text-orange-500 group-hover:text-white transition-colors duration-300" />
               </div>
-              <h3 className="font-military text-lg font-bold mb-2 text-gray-900">LIFETIME WARRANTY</h3>
-              <p className="text-gray-600">Built to last. Every piece comes with our lifetime craftsmanship guarantee.</p>
+              <h3 className="font-military text-xl font-bold mb-4 text-white">LIFETIME ARMOR</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Built for the long haul. Every piece comes with our lifetime craftsmanship guarantee.
+              </p>
             </div>
+
             <div className="text-center group">
-              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-500 transition-colors duration-300">
-                <Award className="h-8 w-8 text-orange-500 group-hover:text-white" />
+              <div className="bg-orange-500/20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-500 transition-all duration-300 border border-orange-500/30">
+                <Award className="h-10 w-10 text-orange-500 group-hover:text-white transition-colors duration-300" />
               </div>
-              <h3 className="font-military text-lg font-bold mb-2 text-gray-900">PREMIUM QUALITY</h3>
-              <p className="text-gray-600">Military-grade materials and construction. Excellence in every detail.</p>
+              <h3 className="font-military text-xl font-bold mb-4 text-white">ELITE STANDARDS</h3>
+              <p className="text-gray-400 leading-relaxed">
+                Military-grade materials and construction. No compromises, only excellence.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 bg-gray-50">
+      <section id="featured-products" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-military text-4xl font-bold text-gray-900 mb-4">
-              FEATURED GEAR
+              MISSION-READY GEAR
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover our most popular tactical-inspired pieces, designed for the modern warrior.
+              Discover our most battle-tested tactical pieces, designed for the modern warrior.
             </p>
           </div>
 
@@ -117,7 +247,7 @@ const Home: React.FC = () => {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-2">
                 <Star className="h-5 w-5 text-orange-500 fill-current" />
-                <span className="font-semibold text-gray-900">Customer Favorites</span>
+                <span className="font-semibold text-gray-900">Elite Selection</span>
               </div>
               <div className="flex space-x-2">
                 <button
@@ -153,36 +283,36 @@ const Home: React.FC = () => {
               to="/shop"
               className="bg-gray-900 hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              VIEW ALL PRODUCTS
+              FULL ARSENAL
             </Link>
           </div>
         </div>
       </section>
 
       {/* Brand Story Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="font-military text-4xl font-bold text-gray-900 mb-6">
-                BUILT FOR <span className="text-orange-500">EXCELLENCE</span>
+                FORGED IN <span className="text-orange-500">BATTLE</span>
               </h2>
               <p className="text-lg text-gray-700 mb-6 leading-relaxed">
                 Born from the battlefield, forged for the streets. RICH-U-ALS bridges the gap 
-                between military precision and urban style, creating tactical clothing that 
-                honors heritage while serving modern needs.
+                between military precision and urban dominance, creating tactical clothing that 
+                honors heritage while conquering modern challenges.
               </p>
               <p className="text-lg text-gray-700 mb-8 leading-relaxed">
                 Every piece is designed with the modern warrior in mind - whether you're 
                 navigating urban environments, outdoor adventures, or simply demand clothing 
-                that can keep up with your lifestyle.
+                that can keep up with your relentless pursuit of excellence.
               </p>
               <div className="grid grid-cols-2 gap-6">
-                <div className="text-center">
+                <div className="text-center bg-white p-6 rounded-xl shadow-md">
                   <div className="text-3xl font-bold text-orange-500 mb-1">2019</div>
-                  <div className="text-sm text-gray-600 font-medium">FOUNDED</div>
+                  <div className="text-sm text-gray-600 font-medium">ESTABLISHED</div>
                 </div>
-                <div className="text-center">
+                <div className="text-center bg-white p-6 rounded-xl shadow-md">
                   <div className="text-3xl font-bold text-orange-500 mb-1">50K+</div>
                   <div className="text-sm text-gray-600 font-medium">WARRIORS EQUIPPED</div>
                 </div>
@@ -196,28 +326,33 @@ const Home: React.FC = () => {
                   className="w-full h-96 object-cover rounded-2xl shadow-lg"
                 />
               </div>
+              <div className="absolute -bottom-6 -right-6 bg-orange-500 text-white p-4 rounded-xl shadow-lg">
+                <div className="text-sm font-medium">VETERAN OWNED</div>
+                <div className="text-xs text-orange-100">& OPERATED</div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Newsletter CTA */}
-      <section className="py-16 bg-gradient-to-r from-orange-500 to-orange-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-military text-3xl font-bold text-white mb-4">
-            JOIN THE RANKS
+      <section className="py-20 bg-gradient-to-r from-orange-500 to-orange-600 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-military text-4xl font-bold text-white mb-4">
+            JOIN THE ELITE RANKS
           </h2>
-          <p className="text-orange-100 text-lg mb-8 max-w-2xl mx-auto">
-            Get exclusive access to new drops, tactical gear updates, and survival tips. 
-            Plus, receive 10% off your first order.
+          <p className="text-orange-100 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
+            Get exclusive intel on new drops, tactical gear updates, and survival strategies. 
+            Plus, receive 10% off your first mission.
           </p>
           <div className="flex flex-col sm:flex-row max-w-md mx-auto gap-3">
             <input
               type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-6 py-4 rounded-lg border-0 focus:outline-none focus:ring-4 focus:ring-orange-300 text-gray-900"
+              placeholder="Enter your email for deployment"
+              className="flex-1 px-6 py-4 rounded-lg border-0 focus:outline-none focus:ring-4 focus:ring-orange-300 text-gray-900 placeholder-gray-500"
             />
-            <button className="bg-white hover:bg-gray-100 text-orange-500 font-bold py-4 px-8 rounded-lg transition-colors duration-200">
+            <button className="bg-black hover:bg-gray-900 text-white font-bold py-4 px-8 rounded-lg transition-all duration-200 transform hover:scale-105">
               ENLIST NOW
             </button>
           </div>
