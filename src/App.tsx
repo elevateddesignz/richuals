@@ -12,10 +12,9 @@ import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import CustomerLogin from './pages/CustomerLogin';
+import UnifiedLogin from './pages/UnifiedLogin';
 import CustomerAccount from './pages/CustomerAccount';
 import OrderDetail from './pages/OrderDetail';
-import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import ProductManager from './pages/ProductManager';
 
@@ -33,12 +32,13 @@ const App: React.FC = () => {
               <div className="flex-1 flex flex-col">
                 <Routes>
                   {/* Admin Routes - No Header/Footer */}
-                  <Route path="/admin/login" element={<AdminLogin />} />
                   <Route path="/admin/dashboard" element={<AdminDashboard />} />
                   <Route path="/admin/products" element={<ProductManager />} />
                   
+                  {/* Unified Login Route - No Header/Footer */}
+                  <Route path="/login" element={<UnifiedLogin />} />
+                  
                   {/* Customer Account Routes - No Header/Footer */}
-                  <Route path="/login" element={<CustomerLogin />} />
                   <Route path="/account" element={<CustomerAccount />} />
                   <Route path="/account/orders/:orderId" element={<OrderDetail />} />
                   

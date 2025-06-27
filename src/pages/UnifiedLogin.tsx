@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff, AlertCircle, User, Phone } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, AlertCircle, User, Phone, Shield } from 'lucide-react';
 import { useCustomer } from '../context/CustomerContext';
+import { useAdmin } from '../context/AdminContext';
 
-const CustomerLogin: React.FC = () => {
+const UnifiedLogin: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,12 +25,17 @@ const CustomerLogin: React.FC = () => {
     newsletter: false
   });
 
-  const { state, login, register } = useCustomer();
+  const { state: customerState, login: customerLogin, register } = useCustomer();
+  const { state: adminState, login: adminLogin } = useAdmin();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/account';
 
-  if (state.isAuthenticated) {
+  // Redirect if already authenticated
+  if (customerState.isAuthenticated) {
     return <Navigate to={from} replace />;
+  }
+  if (adminState.isAuthenticated) {
+    return <Navigate to="/admin/dashboard" replace />;
   }
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -38,8 +44,16 @@ const CustomerLogin: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const success = await login(loginData.email, loginData.password);
-      if (!success) {
+      // First try admin login
+      const adminSuccess = adminLogin(loginData.email, loginData.password);
+      if (adminSuccess) {
+        // Admin login successful - will redirect via useEffect in component
+        return;
+      }
+
+      // If admin login fails, try customer login
+      const customerSuccess = await customerLogin(loginData.email, loginData.password);
+      if (!customerSuccess) {
         setError('Invalid email or password');
       }
     } catch (err) {
@@ -98,7 +112,7 @@ const CustomerLogin: React.FC = () => {
             {isLogin ? 'Welcome Back, Warrior' : 'Join the Elite'}
           </h2>
           <p className="text-gray-600">
-            {isLogin ? 'Sign in to your tactical account' : 'Create your warrior account'}
+            {isLogin ? 'Sign in to your account' : 'Create your warrior account'}
           </p>
         </div>
 
@@ -344,10 +358,25 @@ const CustomerLogin: React.FC = () => {
             </form>
           )}
 
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-            <p className="text-sm text-gray-600 mb-2">Demo Account:</p>
-            <p className="text-sm font-mono text-gray-800">Email: john.warrior@example.com</p>
-            <p className="text-sm font-mono text-gray-800">Password: warrior123</p>
+          {/* Demo Accounts */}
+          <div className="mt-6 space-y-4">
+            <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-center space-x-2 mb-2">
+                <User className="h-4 w-4 text-blue-500" />
+                <p className="text-sm font-medium text-blue-900">Customer Demo Account:</p>
+              </div>
+              <p className="text-sm font-mono text-blue-800">Email: john.warrior@example.com</p>
+              <p className="text-sm font-mono text-blue-800">Password: warrior123</p>
+            </div>
+
+            <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
+              <div className="flex items-center space-x-2 mb-2">
+                <Shield className="h-4 w-4 text-orange-500" />
+                <p className="text-sm font-medium text-orange-900">Admin Demo Account:</p>
+              </div>
+              <p className="text-sm font-mono text-orange-800">Username: admin</p>
+              <p className="text-sm font-mono text-orange-800">Password: richuals2025</p>
+            </div>
           </div>
         </div>
       </div>
@@ -355,4 +384,4 @@ const CustomerLogin: React.FC = () => {
   );
 };
 
-export default CustomerLogin;
+export default UnifiedLogin;

@@ -64,17 +64,6 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
               </span>
             )}
           </Link>
-
-          {/* Admin Login - Only show if not a customer */}
-          {!customerState.isAuthenticated && (
-            <Link 
-              to="/admin/login"
-              className="text-xs text-gray-500 hover:text-orange-500 transition-colors duration-200 ml-2"
-              title="Admin"
-            >
-              Admin
-            </Link>
-          )}
         </div>
       </div>
     </header>

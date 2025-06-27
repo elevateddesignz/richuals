@@ -139,7 +139,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           {/* Admin Section */}
           <div className="border-t border-gray-200 my-4"></div>
           <Link 
-            to="/admin/login" 
+            to="/login" 
             onClick={onClose} 
             className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200 bg-gray-50 hover:bg-orange-50 px-3 py-2 rounded-lg"
           >
