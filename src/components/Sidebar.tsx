@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { X, Shield, User, Package, Heart } from 'lucide-react';
+import { X, User, Package, Heart } from 'lucide-react';
 import { useCustomer } from '../context/CustomerContext';
 
 interface SidebarProps {
@@ -135,17 +135,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               <span>Login / Register</span>
             </Link>
           )}
-          
-          {/* Admin Section */}
-          <div className="border-t border-gray-200 my-4"></div>
-          <Link 
-            to="/login" 
-            onClick={onClose} 
-            className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 font-medium transition-colors duration-200 bg-gray-50 hover:bg-orange-50 px-3 py-2 rounded-lg"
-          >
-            <Shield className="h-4 w-4" />
-            <span>Admin Portal</span>
-          </Link>
         </nav>
       </aside>
     </div>
