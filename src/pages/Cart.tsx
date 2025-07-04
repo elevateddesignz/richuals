@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Minus, Plus, X, ArrowLeft, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import CheckoutForm from '../components/CheckoutForm';
 
 const Cart: React.FC = () => {
   const { state, dispatch } = useCart();
+  const [showCheckout, setShowCheckout] = React.useState(false);
 
   const updateQuantity = (id: string, quantity: number) => {
     if (quantity <= 0) {
@@ -19,8 +21,13 @@ const Cart: React.FC = () => {
   };
 
   const handleCheckout = () => {
-    // Integrate with Stripe here
-    alert('Checkout functionality would integrate with Stripe here');
+    setShowCheckout(true);
+  };
+
+  const handleCheckoutSuccess = () => {
+    setShowCheckout(false);
+    // Redirect to success page or show success message
+    alert('Order completed successfully!');
   };
 
   if (state.items.length === 0) {
@@ -45,6 +52,25 @@ const Cart: React.FC = () => {
     );
   }
 
+  if (showCheckout) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="mb-8">
+            <h1 className="font-stencil text-3xl font-bold text-gray-900">
+              SECURE CHECKOUT
+            </h1>
+            <p className="text-gray-600">Complete your order securely with Square</p>
+          </div>
+          
+          <CheckoutForm 
+            onBack={() => setShowCheckout(false)}
+            onSuccess={handleCheckoutSuccess}
+          />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -176,12 +202,12 @@ const Cart: React.FC = () => {
                 onClick={handleCheckout}
                 className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 mb-4"
               >
-                PROCEED TO CHECKOUT
+                SECURE CHECKOUT WITH SQUARE
               </button>
 
               <div className="text-center">
                 <p className="text-xs text-gray-500">
-                  Secure checkout powered by Stripe
+                  Secure checkout powered by Square
                 </p>
               </div>
             </div>
