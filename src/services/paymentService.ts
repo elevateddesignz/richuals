@@ -46,7 +46,7 @@ class PaymentService {
 
   constructor() {
     // Replace with your actual backend API URL
-    this.baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+    this.baseUrl = import.meta.env.VITE_REACT_APP_API_URL || 'http://localhost:3001/api';
   }
 
   async processPayment(paymentRequest: PaymentRequest): Promise<PaymentResponse> {
